@@ -32,55 +32,6 @@ About me
 I am a highly motivated and goal-oriented person, I am enthusiastic about computer science, data, and AI in general. Therefore, I am eager to contribute to the networking of like minded communities to facilitate and explore the intricacies of data and how to use data well. My effective communication, adaptability, and change-driven mindset help me to easily integrate, collaborate, and flourish in any environment.
 
 
-## service
-
-I am sharpening my skills in
-
-alt = design icon
-Web design
-The most modern and high-quality design made at a professional level.
-
-alt = Web development icon
-Web development
-High-quality development of sites at the professional level.
-
-alt = mobile app icon
-Mobile apps
-Professional development of applications for iOS and Android.
-
-alt = camera icon
-Photography
-I make high-quality photos of any category at a professional level.
-
-
-## testimonials
-
-Testimonials
-
-alt = Daniel lewis
-Daniel lewis
-Richard was hired to create a corporate identity. We were very pleased with the work done. She has a lot of experience and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt consectetur adipiscing elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-
-alt = Jessica miller
-Jessica miller
-Richard was hired to create a corporate identity. We were very pleased with the work done. She has a lot of experience and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt consectetur adipiscing elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-
-alt = Emily evans
-Emily evans
-Richard was hired to create a corporate identity. We were very pleased with the work done. She has a lot of experience and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt consectetur adipiscing elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-
-alt = Henry william
-Henry william
-Richard was hired to create a corporate identity. We were very pleased with the work done. She has a lot of experience and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt consectetur adipiscing elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-
-
-## clients
-
-Clients
-
-alt = client logo
-
-
 
 # resume
 
