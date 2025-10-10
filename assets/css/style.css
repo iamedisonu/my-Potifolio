@@ -1585,6 +1585,30 @@ textarea.form-input {
   padding: var(--section-padding);
 }
 
+/* Resume Download Section */
+.resume-download-section {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.resume-download-section .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-600);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-md);
+}
+
+.resume-download-section .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
 /* Resume Tabs */
 .resume-tabs {
   display: flex;
