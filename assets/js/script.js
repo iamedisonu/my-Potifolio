@@ -106,52 +106,377 @@ filterBtns.forEach(btn => {
   });
 });
 
-// Terminal Typing Animation
-function typeTerminalText() {
-  const terminalLines = document.querySelectorAll('.terminal-line');
-  let delay = 0;
-  
-  terminalLines.forEach((line, index) => {
-    setTimeout(() => {
-      line.style.opacity = '1';
-      line.style.transform = 'translateY(0)';
-      
-      // Add typing effect to commands
-      const command = line.querySelector('.terminal-command');
-      if (command && command.textContent !== '_') {
-        const text = command.textContent;
-        command.textContent = '';
-        command.style.borderRight = '2px solid #7c3aed';
-        
-        let i = 0;
-        const typeInterval = setInterval(() => {
-          command.textContent += text[i];
-          i++;
-          if (i >= text.length) {
-            clearInterval(typeInterval);
-            command.style.borderRight = 'none';
-            
-            // Show output after command
-            setTimeout(() => {
-              const output = line.nextElementSibling;
-              if (output && output.classList.contains('terminal-output')) {
-                output.style.opacity = '1';
-                output.style.transform = 'translateY(0)';
-              }
-            }, 500);
-          }
-        }, 100);
-      }
-    }, delay);
+// Interactive Terminal System
+class Terminal {
+  constructor() {
+    this.terminalBody = document.getElementById('terminal-body');
+    this.currentLine = null;
+    this.commandHistory = [];
+    this.historyIndex = -1;
+    this.isTyping = false;
     
-    delay += 1000;
+    this.commands = {
+      'help': () => this.showHelp(),
+      'about': () => this.showAbout(),
+      'projects': () => this.showProjects(),
+      'skills': () => this.showSkills(),
+      'contact': () => this.showContact(),
+      'clear': () => this.clearTerminal(),
+      'github': () => this.openGitHub(),
+      'linkedin': () => this.openLinkedIn(),
+      'whoami': () => this.showWhoami(),
+      'ls': () => this.showList(),
+      'cat': () => this.showCat(),
+      'git': () => this.showGit(),
+      'pwd': () => this.showPwd(),
+      'date': () => this.showDate(),
+      'echo': (args) => this.showEcho(args)
+    };
+    
+    this.init();
+  }
+  
+  init() {
+    // Make terminal focusable
+    this.terminalBody.setAttribute('tabindex', '0');
+    this.terminalBody.style.outline = 'none';
+    
+    // Add event listeners
+    this.terminalBody.addEventListener('click', () => this.focusTerminal());
+    this.terminalBody.addEventListener('keydown', (e) => this.handleKeyPress(e));
+    
+    // Initial typing animation
+    setTimeout(() => this.typeInitialCommands(), 2000);
+  }
+  
+  focusTerminal() {
+    this.terminalBody.focus();
+  }
+  
+  handleKeyPress(e) {
+    if (this.isTyping) return;
+    
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.executeCommand();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      this.navigateHistory(-1);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      this.navigateHistory(1);
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      this.autoComplete();
+    } else if (e.key === 'c' && e.ctrlKey) {
+      e.preventDefault();
+      this.interruptCommand();
+    }
+  }
+  
+  createNewLine() {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    line.innerHTML = `
+      <span class="terminal-prompt">edison@portfolio:~$</span>
+      <span class="terminal-command" contenteditable="true" data-command=""></span>
+      <span class="terminal-cursor"></span>
+    `;
+    
+    this.terminalBody.appendChild(line);
+    this.currentLine = line;
+    
+    // Focus on the command input
+    const commandInput = line.querySelector('.terminal-command');
+    commandInput.focus();
+    
+    // Add event listener for typing
+    commandInput.addEventListener('input', (e) => {
+      this.updateCursor();
+    });
+    
+    return line;
+  }
+  
+  executeCommand() {
+    const commandInput = this.currentLine.querySelector('.terminal-command');
+    const command = commandInput.textContent.trim();
+    
+    if (!command) {
+      this.createNewLine();
+      return;
+    }
+    
+    // Add to history
+    this.commandHistory.unshift(command);
+    this.historyIndex = -1;
+    
+    // Remove contenteditable and cursor
+    commandInput.removeAttribute('contenteditable');
+    commandInput.style.borderRight = 'none';
+    this.currentLine.querySelector('.terminal-cursor').remove();
+    
+    // Execute command
+    const [cmd, ...args] = command.split(' ');
+    const output = this.runCommand(cmd, args);
+    
+    // Show output
+    if (output) {
+      const outputDiv = document.createElement('div');
+      outputDiv.className = 'terminal-output';
+      outputDiv.innerHTML = output;
+      this.terminalBody.appendChild(outputDiv);
+    }
+    
+    // Create new line
+    setTimeout(() => this.createNewLine(), 100);
+  }
+  
+  runCommand(cmd, args = []) {
+    if (this.commands[cmd]) {
+      return this.commands[cmd](args);
+    } else {
+      return `Command not found: ${cmd}. Type 'help' for available commands.`;
+    }
+  }
+  
+  showHelp() {
+    return `Available commands:<br>
+• help - Show this help message<br>
+• about - About me<br>
+• projects - List my projects<br>
+• skills - Show my skills<br>
+• contact - Contact information<br>
+• clear - Clear terminal<br>
+• github - Open GitHub profile<br>
+• linkedin - Open LinkedIn profile<br>
+• whoami - Show who I am<br>
+• ls - List files<br>
+• cat [file] - Display file contents<br>
+• git [command] - Git commands<br>
+• pwd - Print working directory<br>
+• date - Show current date<br>
+• echo [text] - Display text`;
+  }
+  
+  showAbout() {
+    return `I'm Edison Uwamungu, a Computer Science and Cybersecurity student at Oklahoma Christian University.<br>
+I'm passionate about technology, cybersecurity, and artificial intelligence.<br>
+Currently working on eagleAI, an innovative AI platform, while developing solutions that protect digital systems.`;
+  }
+  
+  showProjects() {
+    return `My Projects:<br>
+🦅 eagleAI - AI-powered platform (Currently Working)<br>
+🛒 Amazon Clone - E-commerce platform<br>
+🕷️ AI Web Scraper - Python automation<br>
+🌟 Bright Futures Hub - Educational platform<br>
+📊 Bulk Report Generator - Python automation<br>
+💼 Portfolio Website - Modern web design<br><br>
+Visit: <a href="https://github.com/iamedisonu" target="_blank" style="color: #58a6ff;">https://github.com/iamedisonu</a>`;
+  }
+  
+  showSkills() {
+    return `Technical Skills:<br>
+🐍 Python | JavaScript | C++ | Java<br>
+⚛️ React | Node.js | HTML/CSS<br>
+🤖 AI/ML | Machine Learning<br>
+🔒 Cybersecurity | Network Security<br>
+☁️ Cloud Computing | AWS<br>
+📊 Data Analysis | SQL<br>
+🛠️ Git | Docker | Linux`;
+  }
+  
+  showContact() {
+    return `Contact Information:<br>
+📧 Email: edison.u@eagles.oc.edu<br>
+💼 LinkedIn: <a href="https://www.linkedin.com/in/iamedisonu/" target="_blank" style="color: #58a6ff;">linkedin.com/in/iamedisonu</a><br>
+🐙 GitHub: <a href="https://github.com/iamedisonu" target="_blank" style="color: #58a6ff;">github.com/iamedisonu</a><br>
+🐦 Twitter: @edisonuwamungu<br><br>
+Feel free to reach out for opportunities or collaboration!`;
+  }
+  
+  clearTerminal() {
+    this.terminalBody.innerHTML = '';
+    this.createNewLine();
+    return null;
+  }
+  
+  openGitHub() {
+    window.open('https://github.com/iamedisonu', '_blank');
+    return 'Opening GitHub profile...';
+  }
+  
+  openLinkedIn() {
+    window.open('https://www.linkedin.com/in/iamedisonu/', '_blank');
+    return 'Opening LinkedIn profile...';
+  }
+  
+  showWhoami() {
+    return 'Computer Science Student | Cybersecurity Enthusiast | AI Developer';
+  }
+  
+  showList() {
+    return `projects/  skills.txt  resume.pdf  README.md<br>
+eagleAI/  amazon-clone/  ai-web-scraper/  bright-futures-hub/  bulk-report/`;
+  }
+  
+  showCat() {
+    return `Python | JavaScript | C++ | Java | React | Node.js | AI/ML | Cybersecurity`;
+  }
+  
+  showGit() {
+    return `On branch main<br>Your branch is up to date with 'origin/main'<br>nothing to commit, working tree clean`;
+  }
+  
+  showPwd() {
+    return '/home/edison/portfolio';
+  }
+  
+  showDate() {
+    return new Date().toString();
+  }
+  
+  showEcho(args) {
+    return args.join(' ');
+  }
+  
+  navigateHistory(direction) {
+    if (this.commandHistory.length === 0) return;
+    
+    this.historyIndex += direction;
+    
+    if (this.historyIndex < 0) this.historyIndex = 0;
+    if (this.historyIndex >= this.commandHistory.length) this.historyIndex = this.commandHistory.length - 1;
+    
+    const commandInput = this.currentLine.querySelector('.terminal-command');
+    commandInput.textContent = this.commandHistory[this.historyIndex] || '';
+  }
+  
+  autoComplete() {
+    const commandInput = this.currentLine.querySelector('.terminal-command');
+    const currentText = commandInput.textContent.toLowerCase();
+    
+    const matches = Object.keys(this.commands).filter(cmd => 
+      cmd.startsWith(currentText)
+    );
+    
+    if (matches.length === 1) {
+      commandInput.textContent = matches[0];
+    } else if (matches.length > 1) {
+      this.addOutput(`Possible completions: ${matches.join(' ')}`);
+    }
+  }
+  
+  interruptCommand() {
+    this.addOutput('^C');
+    this.createNewLine();
+  }
+  
+  addOutput(text) {
+    const outputDiv = document.createElement('div');
+    outputDiv.className = 'terminal-output';
+    outputDiv.innerHTML = text;
+    this.terminalBody.appendChild(outputDiv);
+  }
+  
+  updateCursor() {
+    // Cursor animation is handled by CSS
+  }
+  
+  typeInitialCommands() {
+    const terminalLines = document.querySelectorAll('.terminal-line');
+    let delay = 0;
+    
+    terminalLines.forEach((line, index) => {
+      setTimeout(() => {
+        line.style.opacity = '1';
+        line.style.transform = 'translateY(0)';
+        
+        // Add typing effect to commands
+        const command = line.querySelector('.terminal-command');
+        if (command && command.textContent !== '_') {
+          const text = command.textContent;
+          command.textContent = '';
+          command.style.borderRight = '2px solid #7c3aed';
+          
+          let i = 0;
+          const typeInterval = setInterval(() => {
+            command.textContent += text[i];
+            i++;
+            if (i >= text.length) {
+              clearInterval(typeInterval);
+              command.style.borderRight = 'none';
+              
+              // Show output after command
+              setTimeout(() => {
+                const output = line.nextElementSibling;
+                if (output && output.classList.contains('terminal-output')) {
+                  output.style.opacity = '1';
+                  output.style.transform = 'translateY(0)';
+                }
+              }, 500);
+            }
+          }, 100);
+        }
+      }, delay);
+      
+      delay += 1000;
+    });
+    
+    // After initial animation, make terminal interactive
+    setTimeout(() => {
+      this.isTyping = false;
+      this.createNewLine();
+    }, delay + 1000);
+  }
+}
+
+// Initialize terminal when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new Terminal();
+  initThemeToggle();
+});
+
+// Theme Toggle Functionality
+function initThemeToggle() {
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = themeToggle.querySelector('.theme-icon');
+  
+  // Get saved theme or default to dark
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  
+  // Update icon based on current theme
+  updateThemeIcon(themeIcon, savedTheme);
+  
+  // Add click event listener
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    // Update theme
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    // Update icon
+    updateThemeIcon(themeIcon, newTheme);
+    
+    // Add transition effect
+    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    setTimeout(() => {
+      document.body.style.transition = '';
+    }, 300);
   });
 }
 
-// Initialize terminal animation
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(typeTerminalText, 2000);
-});
+function updateThemeIcon(icon, theme) {
+  if (theme === 'dark') {
+    icon.name = 'moon-outline';
+  } else {
+    icon.name = 'sunny-outline';
+  }
+}
 
 // Scroll Reveal Animation
 const observerOptions = {

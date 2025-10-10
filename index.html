@@ -18,13 +18,11 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://edisonuwamungu.com">
   
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Edison Uwamungu - Computer Science & Cybersecurity Student">
-  <meta name="twitter:description" content="Computer Science student specializing in Cybersecurity, AI, and Data Science. Passionate about technology and innovation.">
 
   <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="./favicon.svg">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="./assets/css/style.css">
@@ -115,11 +113,6 @@
               <ion-icon name="logo-github"></ion-icon>
             </a>
           </li>
-          <li class="social-item">
-            <a href="https://twitter.com/edisonuwamungu" class="social-link" target="_blank" rel="noopener noreferrer" title="Follow on Twitter">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
         </ul>
 
         <div class="separator"></div>
@@ -158,6 +151,11 @@
             <li class="navbar-item">
               <a href="#contact" class="navbar-link">Contact</a>
             </li>
+            <li class="navbar-item">
+              <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+                <ion-icon name="moon-outline" class="theme-icon"></ion-icon>
+              </button>
+            </li>
           </ul>
 
           <button class="mobile-menu-btn" data-mobile-menu>
@@ -189,7 +187,7 @@
             </div>
           </div>
           
-          <!-- Terminal Component -->
+          <!-- Interactive Terminal Component -->
           <div class="terminal-window" style="margin-top: 4rem; max-width: 800px; margin-left: auto; margin-right: auto;">
             <div class="terminal-header">
               <div class="terminal-dots">
@@ -199,7 +197,7 @@
               </div>
               <div class="terminal-title">edison@portfolio:~$</div>
             </div>
-            <div class="terminal-body">
+            <div class="terminal-body" id="terminal-body">
               <div class="terminal-line">
                 <span class="terminal-prompt">edison@portfolio:~$</span>
                 <span class="terminal-command">whoami</span>
@@ -223,6 +221,12 @@
                 <span class="terminal-command">git status</span>
               </div>
               <div class="terminal-output">On branch main<br>Your branch is up to date with 'origin/main'<br>nothing to commit, working tree clean</div>
+              
+              <div class="terminal-line">
+                <span class="terminal-prompt">edison@portfolio:~$</span>
+                <span class="terminal-command">help</span>
+              </div>
+              <div class="terminal-output">Available commands:<br>• help - Show this help message<br>• about - About me<br>• projects - List my projects<br>• skills - Show my skills<br>• contact - Contact information<br>• clear - Clear terminal<br>• github - Open GitHub profile<br>• linkedin - Open LinkedIn profile</div>
               
               <div class="terminal-line">
                 <span class="terminal-prompt">edison@portfolio:~$</span>
@@ -561,6 +565,19 @@
                 <div class="skill-item">Data Analysis</div>
                 <div class="skill-item">Web Development</div>
                 <div class="skill-item">Cybersecurity</div>
+                <div class="skill-item">Ethical Hacking</div>
+                <div class="skill-item">Penetration Testing</div>
+                <div class="skill-item">Vulnerability Assessment</div>
+                <div class="skill-item">Security Auditing</div>
+                <div class="skill-item">Incident Response</div>
+                <div class="skill-item">Cryptography</div>
+                <div class="skill-item">Firewall Configuration</div>
+                <div class="skill-item">SIEM Tools</div>
+                <div class="skill-item">Wireshark</div>
+                <div class="skill-item">Nmap</div>
+                <div class="skill-item">Metasploit</div>
+                <div class="skill-item">OWASP</div>
+                <div class="skill-item">Security Frameworks</div>
               </div>
             </div>
           </div>
@@ -571,61 +588,83 @@
       <section class="contact section" id="contact">
         <div class="container">
           <h2 class="section-title">Get In Touch</h2>
-          <div class="contact-content">
-            <div class="contact-info">
-              <h3>Let's Connect</h3>
-              <div class="contact-item">
-                <div class="icon-box">
-                  <ion-icon name="mail-outline"></ion-icon>
-                </div>
-                <div class="contact-info">
-                  <h4>Email</h4>
-                  <p>edison.u@eagles.oc.edu</p>
-                </div>
+          <p class="contact-text">
+            I'm always interested in new opportunities and exciting projects. 
+            Whether you have a question or just want to say hi, I'll try my best to get back to you!
+          </p>
+          
+          <!-- Contact Cards Grid -->
+          <div class="contact-grid">
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <ion-icon name="mail-outline"></ion-icon>
               </div>
-              <div class="contact-item">
-                <div class="icon-box">
-                  <ion-icon name="phone-outline"></ion-icon>
-                </div>
-                <div class="contact-info">
-                  <h4>Phone</h4>
-                  <p>+1 (405) 856-5948</p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="icon-box">
-                  <ion-icon name="location-outline"></ion-icon>
-                </div>
-                <div class="contact-info">
-                  <h4>Location</h4>
-                  <p>Oklahoma City, OK</p>
-                </div>
-              </div>
+              <h3>Email Me</h3>
+              <p>Send me an email and I'll respond within 24 hours</p>
+              <a href="mailto:edison.u@eagles.oc.edu" class="contact-link">edison.u@eagles.oc.edu</a>
             </div>
-
-            <form class="contact-form">
-              <h3>Send Message</h3>
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+            
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <ion-icon name="call-outline"></ion-icon>
+              </div>
+              <h3>Call Me</h3>
+              <p>Let's have a conversation about opportunities</p>
+              <a href="tel:+14058565948" class="contact-link">+1 (405) 856-5948</a>
+            </div>
+            
+            <div class="contact-card">
+              <div class="contact-card-icon">
+                <ion-icon name="location-outline"></ion-icon>
+              </div>
+              <h3>Location</h3>
+              <p>Based in Oklahoma, open to remote work</p>
+              <span class="contact-link">Oklahoma City, OK</span>
+            </div>
+          </div>
+          
+          <!-- Contact Form -->
+          <div class="contact-form-container">
+            <h3>Send a Message</h3>
+            <form class="contact-form" data-form>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" name="name" id="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" name="email" id="email" class="form-input" required>
+                </div>
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" name="subject" id="subject" class="form-input" required>
               </div>
               <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required>
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
+                <label for="message" class="form-label">Message</label>
+                <textarea name="message" id="message" class="form-input" rows="5" required></textarea>
               </div>
               <button type="submit" class="btn btn-primary">
                 <span>Send Message</span>
                 <ion-icon name="send-outline"></ion-icon>
               </button>
             </form>
+          </div>
+          
+          <!-- Social Links -->
+          <div class="contact-social">
+            <h3>Connect With Me</h3>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/iamedisonu/" target="_blank" rel="noopener noreferrer" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://github.com/iamedisonu" target="_blank" rel="noopener noreferrer" class="social-link">
+                <ion-icon name="logo-github"></ion-icon>
+                <span>GitHub</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>

@@ -1,0 +1,26 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Terminal window background -->
+  <rect width="32" height="32" rx="4" fill="#0d1117"/>
+  
+  <!-- Terminal header bar -->
+  <rect width="32" height="8" rx="4" fill="#161b22"/>
+  
+  <!-- Terminal dots -->
+  <circle cx="6" cy="4" r="1.5" fill="#f85149"/>
+  <circle cx="10" cy="4" r="1.5" fill="#d29922"/>
+  <circle cx="14" cy="4" r="1.5" fill="#3fb950"/>
+  
+  <!-- Terminal prompt -->
+  <text x="4" y="18" font-family="monospace" font-size="8" fill="#7c3aed" font-weight="bold">edison@</text>
+  <text x="24" y="18" font-family="monospace" font-size="8" fill="#58a6ff">~$</text>
+  
+  <!-- Cursor -->
+  <rect x="26" y="14" width="2" height="6" fill="#7c3aed" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0;0.8" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Command line -->
+  <rect x="4" y="22" width="24" height="1" fill="#8b949e"/>
+  <rect x="4" y="24" width="16" height="1" fill="#8b949e"/>
+  <rect x="4" y="26" width="20" height="1" fill="#8b949e"/>
+</svg>
