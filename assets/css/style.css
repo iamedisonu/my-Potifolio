@@ -1578,6 +1578,287 @@ textarea.form-input {
 }
 
 /*-----------------------------------*\
+  #RESUME SECTION
+\*-----------------------------------*/
+
+.resume {
+  padding: var(--section-padding);
+}
+
+/* Resume Tabs */
+.resume-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-3xl);
+  flex-wrap: wrap;
+}
+
+.resume-tab-btn {
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-primary);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--border-radius);
+  font-size: var(--fs-9);
+  font-weight: var(--fw-500);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-tab-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+.resume-tab-btn.active {
+  background: var(--bg-accent);
+  color: var(--text-primary);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.resume-tab-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.1), transparent);
+  transition: var(--transition-slow);
+}
+
+.resume-tab-btn:hover::before {
+  left: 100%;
+}
+
+/* Resume Tab Content */
+.resume-tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.resume-tab-content.active {
+  display: block;
+}
+
+/* Timeline Styles */
+.timeline {
+  position: relative;
+  padding-left: var(--space-2xl);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: var(--space-lg);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--border-accent), var(--bg-accent));
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-primary);
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-accent);
+}
+
+.timeline-marker {
+  position: absolute;
+  left: calc(-1 * var(--space-2xl) + var(--space-sm));
+  top: var(--space-xl);
+  width: 12px;
+  height: 12px;
+  background: var(--bg-accent);
+  border: 3px solid var(--bg-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--border-accent);
+}
+
+.timeline-content h4 {
+  color: var(--text-primary);
+  font-size: var(--fs-5);
+  margin-bottom: var(--space-sm);
+  font-weight: var(--fw-600);
+}
+
+.timeline-date {
+  color: var(--text-accent);
+  font-size: var(--fs-9);
+  font-weight: var(--fw-500);
+  margin-bottom: var(--space-xs);
+}
+
+.timeline-company {
+  color: var(--text-primary);
+  font-size: var(--fs-8);
+  font-weight: var(--fw-500);
+  margin-bottom: var(--space-sm);
+}
+
+.timeline-description {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: var(--fs-9);
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.skill-category {
+  background: var(--bg-card);
+  padding: var(--space-xl);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-primary);
+  transition: var(--transition-normal);
+}
+
+.skill-category:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-accent);
+}
+
+.skill-category h4 {
+  color: var(--text-primary);
+  font-size: var(--fs-6);
+  margin-bottom: var(--space-lg);
+  font-weight: var(--fw-600);
+  text-align: center;
+  position: relative;
+}
+
+.skill-category h4::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: var(--bg-accent);
+  border-radius: 1px;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.skill-item {
+  background: linear-gradient(135deg, var(--bg-accent), var(--border-accent));
+  color: var(--text-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--fs-9);
+  font-weight: var(--fw-500);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: var(--transition-slow);
+}
+
+.skill-item:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.skill-item:hover::before {
+  left: 100%;
+}
+
+/* Certifications Grid */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.certification-item {
+  background: var(--bg-card);
+  padding: var(--space-xl);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-primary);
+  transition: var(--transition-normal);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+}
+
+.certification-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-accent);
+}
+
+.cert-icon {
+  background: var(--bg-accent);
+  color: var(--text-primary);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.cert-content h4 {
+  color: var(--text-primary);
+  font-size: var(--fs-7);
+  margin-bottom: var(--space-xs);
+  font-weight: var(--fw-600);
+}
+
+.cert-status {
+  color: var(--text-accent);
+  font-size: var(--fs-9);
+  font-weight: var(--fw-500);
+  margin-bottom: var(--space-sm);
+}
+
+.cert-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: var(--fs-9);
+}
+
+/*-----------------------------------*\
   #SCROLL REVEAL
 \*-----------------------------------*/
 

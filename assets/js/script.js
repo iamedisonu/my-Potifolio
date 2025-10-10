@@ -137,6 +137,11 @@ class Terminal {
   }
   
   init() {
+    if (!this.terminalBody) {
+      console.error('Terminal body not found');
+      return;
+    }
+    
     // Make terminal focusable
     this.terminalBody.setAttribute('tabindex', '0');
     this.terminalBody.style.outline = 'none';
@@ -146,7 +151,7 @@ class Terminal {
     this.terminalBody.addEventListener('keydown', (e) => this.handleKeyPress(e));
     
     // Initial typing animation
-    setTimeout(() => this.typeInitialCommands(), 2000);
+    setTimeout(() => this.typeInitialCommands(), 1000);
   }
   
   focusTerminal() {
@@ -432,10 +437,15 @@ eagleAI/  amazon-clone/  ai-web-scraper/  bright-futures-hub/  bulk-report/`;
   }
 }
 
-// Initialize terminal when DOM is loaded
+// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new Terminal();
   initThemeToggle();
+  initResumeTabs();
+  
+  // Initialize terminal after a short delay to ensure DOM is ready
+  setTimeout(() => {
+    new Terminal();
+  }, 500);
 });
 
 // Theme Toggle Functionality
@@ -473,9 +483,32 @@ function initThemeToggle() {
 function updateThemeIcon(icon, theme) {
   if (theme === 'dark') {
     icon.name = 'moon-outline';
-  } else {
+    } else {
     icon.name = 'sunny-outline';
   }
+}
+
+// Resume Tabs Functionality
+function initResumeTabs() {
+  const tabButtons = document.querySelectorAll('.resume-tab-btn');
+  const tabContents = document.querySelectorAll('.resume-tab-content');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const targetTab = button.getAttribute('data-resume-tab');
+      
+      // Remove active class from all buttons and contents
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Add active class to clicked button and corresponding content
+      button.classList.add('active');
+      const targetContent = document.querySelector(`[data-resume-content="${targetTab}"]`);
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+    });
+  });
 }
 
 // Scroll Reveal Animation
