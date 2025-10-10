@@ -92,6 +92,13 @@ const filterFunc = function (selectedValue) {
 
   }
 
+  // Add animation to project items
+  const activeItems = document.querySelectorAll('.project-item.active');
+  activeItems.forEach((item, index) => {
+    item.style.animationDelay = `${index * 0.1}s`;
+    item.style.animation = 'scale 0.3s ease forwards';
+  });
+
 }
 
 // add event in all filter button items for large screen
@@ -148,7 +155,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
       if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         pages[i].classList.remove("active");
         navigationLinks[i].classList.remove("active");
@@ -157,3 +164,28 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// Intersection Observer for animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'slideUp 0.8s ease forwards';
+    }
+  });
+}, observerOptions);
+
+// Observe all service items and project items
+document.addEventListener('DOMContentLoaded', () => {
+  const serviceItems = document.querySelectorAll('.service-item');
+  const projectItems = document.querySelectorAll('.project-item');
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  
+  [...serviceItems, ...projectItems, ...timelineItems].forEach(item => {
+    observer.observe(item);
+  });
+});
