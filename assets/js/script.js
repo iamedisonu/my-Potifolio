@@ -441,6 +441,7 @@ eagleAI/  amazon-clone/  ai-web-scraper/  bright-futures-hub/  bulk-report/`;
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initResumeTabs();
+  initMobileMenu();
   
   // Initialize terminal after a short delay to ensure DOM is ready
   setTimeout(() => {
@@ -509,6 +510,49 @@ function initResumeTabs() {
       }
     });
   });
+}
+
+// Mobile Menu Functionality
+function initMobileMenu() {
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const sidebar = document.querySelector('.sidebar');
+  const mainContent = document.querySelector('.main-content');
+  
+  if (mobileMenuBtn && sidebar && mainContent) {
+    mobileMenuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-open');
+      mainContent.classList.toggle('sidebar-open');
+      
+      // Update button icon
+      const icon = mobileMenuBtn.querySelector('ion-icon');
+      if (sidebar.classList.contains('sidebar-open')) {
+        icon.name = 'close-outline';
+      } else {
+        icon.name = 'menu-outline';
+      }
+    });
+    
+    // Close mobile menu when clicking on a link
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('sidebar-open');
+        mainContent.classList.remove('sidebar-open');
+        const icon = mobileMenuBtn.querySelector('ion-icon');
+        icon.name = 'menu-outline';
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        sidebar.classList.remove('sidebar-open');
+        mainContent.classList.remove('sidebar-open');
+        const icon = mobileMenuBtn.querySelector('ion-icon');
+        icon.name = 'menu-outline';
+      }
+    });
+  }
 }
 
 // Scroll Reveal Animation
