@@ -23,132 +23,95 @@
   <meta name="twitter:title" content="Edison Uwamungu - Computer Science & Cybersecurity Student">
   <meta name="twitter:description" content="Computer Science student specializing in Cybersecurity, AI, and Data Science. Passionate about technology and innovation.">
 
-  <!--
-    - favicon
-  -->
+  <!-- Favicon -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
 
-  <!--
-    - custom css link
-  -->
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="./assets/css/style.css">
 
-  <!--
-    - google font link
-  -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Ion Icons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
 
-  <!--
-    - #MAIN
-  -->
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+    <div class="loading-spinner"></div>
+  </div>
 
+  <!-- Main Content -->
   <main>
 
-    <!--
-      - #SIDEBAR
-    -->
-
+    <!-- Sidebar -->
     <aside class="sidebar" data-sidebar>
-
       <div class="sidebar-info">
-
         <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Edison Uwamungu" width="80">
+          <img src="./assets/images/my-avatar.png" alt="Edison Uwamungu" width="120">
         </figure>
 
         <div class="info-content">
           <h1 class="name" title="Edison Uwamungu">Edison Uwamungu</h1>
-
           <p class="title">Computer Science & Cybersecurity Student</p>
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
           <span>Show Contacts</span>
-
           <ion-icon name="chevron-down"></ion-icon>
         </button>
-
       </div>
 
       <div class="sidebar-info_more">
-
         <div class="separator"></div>
 
         <ul class="contacts-list">
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="mail-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Email</p>
-
-              <a href="mailto:edison.u@eagles.oc.edu" class="contact-link"><p style="font-size: smaller;">edison.u@eagles.oc.edu</p></a>
+              <a href="mailto:edison.u@eagles.oc.edu" class="contact-link">edison.u@eagles.oc.edu</a>
             </div>
-
           </li>
 
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="phone-portrait-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Phone</p>
-
-              <a href="tel:+14058565948" class="contact-link">+14058565948</a>
+              <a href="tel:+14058565948" class="contact-link">+1 (405) 856-5948</a>
             </div>
-
           </li>
 
-           <!-- <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-          <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="1982-06-23">June 23, 1982</time>
-            </div>
-
-          </li> -->
-
           <li class="contact-item">
-
             <div class="icon-box">
               <ion-icon name="location-outline"></ion-icon>
             </div>
-
             <div class="contact-info">
               <p class="contact-title">Location</p>
-
-              <address>2501 E Memorial Rd</address>
+              <address>Oklahoma City, OK</address>
             </div>
-
           </li>
-
         </ul>
 
         <div class="separator"></div>
 
         <ul class="social-list">
           <li class="social-item">
-            <a href="https://linkedin.com/in/edison-uwamungu" class="social-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/iamedisonu/" class="social-link" target="_blank" rel="noopener noreferrer">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
           <li class="social-item">
-            <a href="https://github.com/edisonuwamungu" class="social-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/iamedisonu" class="social-link" target="_blank" rel="noopener noreferrer">
               <ion-icon name="logo-github"></ion-icon>
             </a>
           </li>
@@ -159,942 +122,440 @@
           </li>
         </ul>
 
-      </div>
+        <div class="separator"></div>
 
+        <div class="resume-download">
+          <a href="./Edison Uwamungu.pdf" class="resume-btn" download="Edison_Uwamungu_Resume.pdf" target="_blank">
+            <ion-icon name="download-outline"></ion-icon>
+            <span>Download Resume</span>
+          </a>
+        </div>
+      </div>
     </aside>
 
-    <!--
-      - #main-content
-    -->
-
+    <!-- Main Content -->
     <div class="main-content">
 
-      <!--
-        - #NAVBAR
-      -->
-
+      <!-- Navbar -->
       <nav class="navbar">
+        <div class="container">
+          <ul class="navbar-list">
+            <li class="navbar-item">
+              <a href="#home" class="navbar-link active">Home</a>
+            </li>
+            <li class="navbar-item">
+              <a href="#about" class="navbar-link">About</a>
+            </li>
+            <li class="navbar-item">
+              <a href="#services" class="navbar-link">Services</a>
+            </li>
+            <li class="navbar-item">
+              <a href="#portfolio" class="navbar-link">Portfolio</a>
+            </li>
+            <li class="navbar-item">
+              <a href="#resume" class="navbar-link">Resume</a>
+            </li>
+            <li class="navbar-item">
+              <a href="#contact" class="navbar-link">Contact</a>
+            </li>
+          </ul>
 
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-
-        </ul>
-
+          <button class="mobile-menu-btn" data-mobile-menu>
+            <ion-icon name="menu-outline"></ion-icon>
+          </button>
+        </div>
       </nav>
 
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            I am a passionate Computer Science student at Oklahoma Christian University, specializing in Cybersecurity and Artificial Intelligence. With a strong foundation in programming languages like Python and C++, I am dedicated to exploring the fascinating intersection of technology, security, and data science.
-          </p>
-          
-          <p>
-            My journey in technology began during high school where I was known as the "tech guy" for my ability to troubleshoot and repair computers. This early experience sparked my interest in cybersecurity, leading me to achieve second place in the PicoCTF cybersecurity competition organized by Carnegie Mellon University among high schools across Africa.
-          </p>
-          
-          <p>
-            I am particularly interested in automation, machine learning, and computer vision applications. Through my work with Isomo Academy and Bridge2Rwanda, I've developed practical solutions including Python scripts for report card automation and WhatsApp learning chatbots using GPT-4 API, significantly improving efficiency and student engagement.
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">My Core Competencies</h3>
-
-          <ul class="service-list">
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="Programming icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Programming & Development</h4>
-
-                <p class="service-item-text">
-                  Proficient in Python, C++, HTML/CSS, and MySQL. Experienced in web development and automation scripting.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg" alt="Cybersecurity icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Cybersecurity</h4>
-
-                <p class="service-item-text">
-                  Specialized knowledge in cybersecurity principles, ethical hacking, and security best practices.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-app.svg" alt="AI/ML icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">AI & Machine Learning</h4>
-
-                <p class="service-item-text">
-                  Passionate about artificial intelligence, machine learning, and computer vision applications.
-                </p>
-              </div>
-
-            </li>
-
-          </ul>
-
-        </section>
-
-        <!--
-          - testimonials modal
-        -->
-
-        <div class="modal-container" data-modal-container>
-
-          <div class="overlay" data-overlay></div>
-
-          <section class="testimonials-modal">
-
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
-              </figure>
-
-              <img src="./assets/images/icon-quote.svg" alt="quote icon">
+      <!-- Hero Section -->
+      <section class="hero" id="home">
+        <div class="container">
+          <div class="hero-content">
+            <h1 class="hero-title">Hello, I'm <span class="gradient-text">Edison Uwamungu</span></h1>
+            <h2 class="hero-subtitle">Computer Science & Cybersecurity Student</h2>
+            <p class="hero-description">
+              Passionate about technology, cybersecurity, and artificial intelligence. 
+              I'm dedicated to creating innovative solutions and protecting digital systems 
+              in our increasingly connected world.
+            </p>
+            <div class="hero-buttons">
+              <a href="#portfolio" class="btn btn-primary">
+                <span>View My Work</span>
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </a>
+              <a href="#contact" class="btn btn-secondary">
+                <span>Get In Touch</span>
+                <ion-icon name="mail-outline"></ion-icon>
+              </a>
             </div>
-
-            <div class="modal-content">
-
-              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-
-              <time datetime="2021-06-14">14 June, 2021</time>
-
-              <div data-modal-text>
-                <p>
-                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                  lot of experience
-                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                  consectetur adipiscing
-                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                </p>
-              </div>
-
-            </div>
-
-          </section>
-
+          </div>
         </div>
-      </article>
+      </section>
 
+      <!-- About Section -->
+      <section class="about section" id="about">
+        <div class="container">
+          <div class="about-content">
+            <h2 class="section-title">About Me</h2>
+            <p class="about-text">
+              I'm a dedicated Computer Science student with a passion for cybersecurity, 
+              artificial intelligence, and data science. Currently pursuing my degree at 
+              Oklahoma Christian University, I'm constantly exploring new technologies and 
+              developing innovative solutions to real-world problems.
+            </p>
 
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+            <div class="about-tabs">
+              <button class="tab-btn active" data-tab-btn="skills">Skills</button>
+              <button class="tab-btn" data-tab-btn="experience">Experience</button>
+              <button class="tab-btn" data-tab-btn="education">Education</button>
             </div>
 
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Oklahoma Christian University </h4>
-
-              <span>2024 — 2028</span>
-
-              <p class="timeline-text">
-                Computer Science with Cybersecurity
-              </p>
-
-            </li>
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Isomo Academy | Bridge2Rwanda</h4>
-
-              <span>2021 — Lifetime</span>
-
-              <p class="timeline-text">
-                Isomo Academy is a rigorous program that selects high-performing students in Rwanda and equips them with essential courses for success in life. This preparation helps scholars impact their communities positively and ensures they are competitive in college applications and beyond, wherever their paths may lead.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Lycee de Kigali </h4>
-
-              <span>2020 — 2022</span>
-
-              <p class="timeline-text">
-                Mathematics-Physics-Computer Science
-              </p>
-
-            </li>
-           
-            </li>
-
-            
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Isomo Academy | Bridge2Rwanda Fellow</h4>
-
-              <span>2023 — 2024</span>
-
-              <p class="timeline-text">
-                 Developed a Python script to automate the generation of report cards, reducing manual time from days to seconds.
-                  
-         </p>
-         <p> </p>
-         <p class="timeline-text">
-         
-         Developed a WhatsApp learning chatbot using GPT-4 API and Manychat, improving content delivery for 198 students and reducing grading time by 85% through automatic feedback.
-           
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Street Bridge Foundation</h4>
-
-              <span>2022 — 2024</span>
-
-              <p class="timeline-text">
-                As a videographer, I created engaging videos for the Street Bridge Foundation, capturing their transformative work with Kigali's vulnerable children. My edits highlighted their educational and economic empowerment programs, aiding the foundation's mission promotion and support efforts.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Tech Guy at Lycee de Kigali</h4>
-
-              <span>2020 — 2022</span>
-
-              <p class="timeline-text">
-                At Lycee de Kigali, I was known as the tech guy. I regularly repaired malfunctioning computers at the school and taught my fellow students how to do the same.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="skill">
-
-          <h3 class="h3 skills-title">Technical Skills</h3>
-
-          <ul class="skills-list content-card">
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Python</h5>
-                <data value="90">90%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">C++</h5>
-                <data value="75">75%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 75%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">HTML &amp; CSS</h5>
-                <data value="85">85%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 85%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">JavaScript</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">MySQL</h5>
-                <data value="75">75%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 75%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Cybersecurity</h5>
-                <data value="80">80%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Machine Learning</h5>
-                <data value="70">70%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Video &amp; Photo Editing</h5>
-                <data value="85">85%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 85%;"></div>
-              </div>
-
-            </li>
-
-            <li class="skills-item">
-
-              <div class="title-wrapper">
-                <h5 class="h5">Graphic Design &amp; Figma</h5>
-                <data value="75">75%</data>
-              </div>
-
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 75%;"></div>
-              </div>
-
-            </li>
-
-          </ul>
-
-            <section class="timeline">
-
-              <div class="title-wrapper">
-                <div class="icon-box">
-                  <ion-icon name="book-outline"></ion-icon>
+            <div class="tab-content active" data-tab-content="skills">
+              <div class="skills-content">
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                  </div>
+                  <h3>Programming</h3>
+                  <p>Proficient in Python, C++, JavaScript, and various programming paradigms. Experienced in algorithm design and software development.</p>
                 </div>
-    
-                <h3 class="h3">Soft Skills</h3>
-              </div>
-    
-              <ol class="timeline-list">
-    
-                <li class="timeline-item">
-    
-                  <h4 class="h4 timeline-item-title">Verbal and written communication</h4>
-     
-    
-                </li>
-    
-                <li class="timeline-item">
-    
-                  <h4 class="h4 timeline-item-title">Leadership</h4>
-  
-                </li>
-    
-                <li class="timeline-item">
-    
-                  <h4 class="h4 timeline-item-title">Teamwork </h4>
-    
-  
-    
-                </li>
-                <li class="timeline-item">
-    
-                  <h4 class="h4 timeline-item-title">Analytical thinking</h4>
 
-    
-                  </li>
-                  <li class="timeline-item">
-    
-                    <h4 class="h4 timeline-item-title">Time management</h4>
-  
-      
-                    </li>
-                    <li class="timeline-item">
-    
-                      <h4 class="h4 timeline-item-title">Patience</h4>
-    
-        
-                      </li>
-                      <li class="timeline-item">
-    
-                        <h4 class="h4 timeline-item-title">Engagement</h4>
-      
-          
-                        </li>
-    
-              </ol>
-    
-            </section>
-    
-          
-
-        </section>
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Awards &amp; Honors</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">PicoCTF</h4>
-
-              <span>2022</span>
-
-              <p class="timeline-text">
-                Secured <b>second place</b> in the PicoCTF cybersecurity competition, organized by Carnegie Mellon University, among high schools across Africa.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Wavumbuzi Entrepreneurship Challenge</h4>
-
-              <span>2022</span>
-
-              <p class="timeline-text">
-                I secured <b>first place</b> in the sixth week of the Wavumbuzi Challenge, a weekly competition that poses questions on entrepreneurship through digital quests and rewards winners at the end of each week.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Science and Tech; Mathematics: club advisor</h4>
-
-              <span>2020 — 2022</span>
-
-              <p class="timeline-text">
-                I received a certificate for guiding and mentoring students as they delve into advanced mathematics and technology, and for promoting innovation and teamwork through club activities.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Languages</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">English</h4>
- <p class="timeline-text">
-  Professional working proficiency
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Kinyarwanda</h4>
-
-              <p class="timeline-text">
-                Native or bilingual proficiency</p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Kiswahili</h4>
-
-              <p class="timeline-text">
-              Professional working proficiency   </p>
-
-            </li>
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Kirundi</h4>
-
-              <p class="timeline-text">
-              Professional working proficiency  </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Interests</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Artificial Intelligence</h4>
- 
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Automation</h4>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Machine Learning</h4>
-
-
-
-            </li>
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Computer vision </h4>
-
-
-              </li>
-              <li class="timeline-item">
-
-                <h4 class="h4 timeline-item-title">Cybersecurity</h4>
-
-  
-                </li>
-                
-
-          </ol>
-
-        </section>
-        
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">References</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">College counselor
-              </h4>
- <p class="timeline-text">
-  nkayitare@bridge2rwanda.org 
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">LDK Teacher
-              </h4>
-
-              <p class="timeline-text">
-                	emmanuel@lyceedekigali.info</p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">CyLab-Africa's research lab manager</h4>
-
-              <p class="timeline-text">
-                
-lchacha@andrew.cmu.edu  </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-      
-      </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Python Projects</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web Development</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>AI/ML</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Cybersecurity</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Python Projects</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web Development</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>AI/ML</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Cybersecurity</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            <li class="project-item  active" data-filter-item data-category="python projects">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="code-outline"></ion-icon>
-                  </div>
-
-                  <div class="project-placeholder project-placeholder-1">
-                    <div class="project-icon">📊</div>
-                    <div class="project-overlay">
-                      <h4>Report Card Automation</h4>
-                      <p>Python Script</p>
-                    </div>
-                  </div>
-                </figure>
-
-                <h3 class="project-title">Report Card Automation</h3>
-
-                <p class="project-category">Python Projects</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="ai/ml">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
-                  </div>
-
-                  <div class="project-placeholder project-placeholder-2">
-                    <div class="project-icon">🤖</div>
-                    <div class="project-overlay">
-                      <h4>WhatsApp Learning Bot</h4>
-                      <p>AI/ML Project</p>
-                    </div>
-                  </div>
-                </figure>
-
-                <h3 class="project-title">WhatsApp Learning Bot</h3>
-
-                <p class="project-category">AI/ML</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="cybersecurity">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
+                <div class="skills-item">
+                  <div class="icon-box">
                     <ion-icon name="shield-checkmark-outline"></ion-icon>
                   </div>
+                  <h3>Cybersecurity</h3>
+                  <p>Knowledgeable in network security, ethical hacking, vulnerability assessment, and security best practices.</p>
+                </div>
 
-                  <div class="project-placeholder project-placeholder-3">
-                    <div class="project-icon">🛡️</div>
-                    <div class="project-overlay">
-                      <h4>PicoCTF Solutions</h4>
-                      <p>Cybersecurity</p>
-                    </div>
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="brain-outline"></ion-icon>
                   </div>
-                </figure>
+                  <h3>AI & Machine Learning</h3>
+                  <p>Experience with machine learning algorithms, data analysis, and artificial intelligence applications.</p>
+                </div>
+              </div>
+            </div>
 
-                <h3 class="project-title">PicoCTF Solutions</h3>
-
-                <p class="project-category">Cybersecurity</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="globe-outline"></ion-icon>
+            <div class="tab-content" data-tab-content="experience">
+              <div class="skills-content">
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="trophy-outline"></ion-icon>
                   </div>
+                  <h3>PicoCTF 2023</h3>
+                  <p>Participated in the prestigious PicoCTF cybersecurity competition, solving complex challenges and improving my security skills.</p>
+                </div>
 
-                  <div class="project-placeholder project-placeholder-4">
-                    <div class="project-icon">🌐</div>
-                    <div class="project-overlay">
-                      <h4>Personal Portfolio</h4>
-                      <p>Web Development</p>
-                    </div>
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="school-outline"></ion-icon>
                   </div>
-                </figure>
+                  <h3>Academic Projects</h3>
+                  <p>Developed various programming projects including automation scripts, web applications, and data analysis tools.</p>
+                </div>
 
-                <h3 class="project-title">Personal Portfolio</h3>
-
-                <p class="project-category">Web Development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="python projects">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="analytics-outline"></ion-icon>
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="people-outline"></ion-icon>
                   </div>
+                  <h3>Team Collaboration</h3>
+                  <p>Experienced in working with diverse teams on complex projects, utilizing version control and agile methodologies.</p>
+                </div>
+              </div>
+            </div>
 
-                  <div class="project-placeholder project-placeholder-5">
-                    <div class="project-icon">📈</div>
-                    <div class="project-overlay">
-                      <h4>Data Analysis Tools</h4>
-                      <p>Python Project</p>
-                    </div>
+            <div class="tab-content" data-tab-content="education">
+              <div class="skills-content">
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="library-outline"></ion-icon>
                   </div>
-                </figure>
+                  <h3>Oklahoma Christian University</h3>
+                  <p>Bachelor of Science in Computer Science with focus on Cybersecurity and Artificial Intelligence.</p>
+                </div>
 
-                <h3 class="project-title">Data Analysis Tools</h3>
-
-                <p class="project-category">Python Projects</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="ai/ml">
-              <a href="#" target="_blank" rel="noopener noreferrer">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="certificate-outline"></ion-icon>
                   </div>
+                  <h3>Certifications</h3>
+                  <p>Pursuing various cybersecurity and programming certifications to enhance my technical expertise.</p>
+                </div>
 
-                  <div class="project-placeholder project-placeholder-6">
-                    <div class="project-icon">👁️</div>
-                    <div class="project-overlay">
-                      <h4>Computer Vision Project</h4>
-                      <p>AI/ML Project</p>
-                    </div>
+                <div class="skills-item">
+                  <div class="icon-box">
+                    <ion-icon name="book-outline"></ion-icon>
                   </div>
-                </figure>
+                  <h3>Continuous Learning</h3>
+                  <p>Committed to staying updated with the latest technologies and industry trends through online courses and self-study.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <h3 class="project-title">Computer Vision Project</h3>
+      <!-- Services Section -->
+      <section class="services section" id="services">
+        <div class="container">
+          <h2 class="section-title">My Core Competencies</h2>
+          <div class="services-grid">
+            <div class="service-item">
+              <div class="icon-box">
+                <ion-icon name="code-slash-outline"></ion-icon>
+              </div>
+              <h3>Programming & Development</h3>
+              <p>Full-stack development using modern technologies. Creating efficient, scalable, and maintainable code for various applications.</p>
+            </div>
 
-                <p class="project-category">AI/ML</p>
+            <div class="service-item">
+              <div class="icon-box">
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+              </div>
+              <h3>Cybersecurity</h3>
+              <p>Protecting digital assets through vulnerability assessment, security auditing, and implementing robust security measures.</p>
+            </div>
 
-              </a>
-            </li>
+            <div class="service-item">
+              <div class="icon-box">
+                <ion-icon name="brain-outline"></ion-icon>
+              </div>
+              <h3>AI & Machine Learning</h3>
+              <p>Developing intelligent solutions using machine learning algorithms, data analysis, and artificial intelligence technologies.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          </ul>
-
-        </section>
-
-      </article>
-
-
+      <!-- Portfolio Section -->
+      <section class="portfolio section" id="portfolio">
+        <div class="container">
+          <h2 class="section-title">My Portfolio</h2>
+          <div class="portfolio-filter">
+            <button class="filter-btn active" data-filter-btn="all">All</button>
+            <button class="filter-btn" data-filter-btn="python">Python Projects</button>
+            <button class="filter-btn" data-filter-btn="web">Web Development</button>
+            <button class="filter-btn" data-filter-btn="ai">AI/ML</button>
+            <button class="filter-btn" data-filter-btn="security">Cybersecurity</button>
           </div>
 
+          <div class="portfolio-grid">
+            <div class="project-item" data-filter-item data-category="python">
+              <figure class="project-img">
+                <div class="project-placeholder project-placeholder-1">
+                  <div class="project-icon">📊</div>
+                  <div class="project-overlay">
+                    <h4>Report Card Automation</h4>
+                    <p>Python Script</p>
+                  </div>
+                </div>
+              </figure>
+              <div class="project-content">
+                <h3 class="project-title">Report Card Automation</h3>
+                <p class="project-category">Python Projects</p>
+              </div>
+            </div>
+
+            <div class="project-item" data-filter-item data-category="web">
+              <figure class="project-img">
+                <div class="project-placeholder project-placeholder-2">
+                  <div class="project-icon">🌐</div>
+                  <div class="project-overlay">
+                    <h4>E-Commerce Platform</h4>
+                    <p>Full-Stack Web App</p>
+                  </div>
+                </div>
+              </figure>
+              <div class="project-content">
+                <h3 class="project-title">E-Commerce Platform</h3>
+                <p class="project-category">Web Development</p>
+              </div>
+            </div>
+
+            <div class="project-item" data-filter-item data-category="ai">
+              <figure class="project-img">
+                <div class="project-placeholder project-placeholder-3">
+                  <div class="project-icon">🤖</div>
+                  <div class="project-overlay">
+                    <h4>ML Prediction Model</h4>
+                    <p>Machine Learning</p>
+                  </div>
+                </div>
+              </figure>
+              <div class="project-content">
+                <h3 class="project-title">ML Prediction Model</h3>
+                <p class="project-category">AI/ML</p>
+              </div>
+            </div>
+
+            <div class="project-item" data-filter-item data-category="security">
+              <figure class="project-img">
+                <div class="project-placeholder project-placeholder-4">
+                  <div class="project-icon">🔒</div>
+                  <div class="project-overlay">
+                    <h4>Security Audit Tool</h4>
+                    <p>Cybersecurity</p>
+                  </div>
+                </div>
+              </figure>
+              <div class="project-content">
+                <h3 class="project-title">Security Audit Tool</h3>
+                <p class="project-category">Cybersecurity</p>
+              </div>
+            </div>
+
+            <div class="project-item" data-filter-item data-category="python">
+              <figure class="project-img">
+                <div class="project-placeholder project-placeholder-5">
+                  <div class="project-icon">📈</div>
+                  <div class="project-overlay">
+                    <h4>Data Analysis Dashboard</h4>
+                    <p>Python & Visualization</p>
+                  </div>
+                </div>
+              </figure>
+              <div class="project-content">
+                <h3 class="project-title">Data Analysis Dashboard</h3>
+                <p class="project-category">Python Projects</p>
+              </div>
+            </div>
+
+            <div class="project-item" data-filter-item data-category="web">
+              <figure class="project-img">
+                <div class="project-placeholder project-placeholder-6">
+                  <div class="project-icon">💼</div>
+                  <div class="project-overlay">
+                    <h4>Portfolio Website</h4>
+                    <p>Modern Web Design</p>
+                  </div>
+                </div>
+              </figure>
+              <div class="project-content">
+                <h3 class="project-title">Portfolio Website</h3>
+                <p class="project-category">Web Development</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resume Section -->
+      <section class="resume section" id="resume">
+        <div class="container">
+          <h2 class="section-title">Resume</h2>
+          <div class="resume-content">
+            <div class="resume-item">
+              <h3>Education</h3>
+              <div class="timeline-item">
+                <h4>Bachelor of Science in Computer Science</h4>
+                <div class="timeline-date">2022 - Present</div>
+                <p>Oklahoma Christian University<br>
+                Focus: Cybersecurity & Artificial Intelligence</p>
+              </div>
+              <div class="timeline-item">
+                <h4>High School Diploma</h4>
+                <div class="timeline-date">2018 - 2022</div>
+                <p>Graduated with honors, strong foundation in mathematics and science</p>
+              </div>
+            </div>
+
+            <div class="resume-item">
+              <h3>Technical Skills</h3>
+              <div class="skills-list">
+                <div class="skill-item">Python</div>
+                <div class="skill-item">C++</div>
+                <div class="skill-item">JavaScript</div>
+                <div class="skill-item">HTML/CSS</div>
+                <div class="skill-item">SQL</div>
+                <div class="skill-item">Git</div>
+                <div class="skill-item">Linux</div>
+                <div class="skill-item">Network Security</div>
+                <div class="skill-item">Machine Learning</div>
+                <div class="skill-item">Data Analysis</div>
+                <div class="skill-item">Web Development</div>
+                <div class="skill-item">Cybersecurity</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact section" id="contact">
+        <div class="container">
+          <h2 class="section-title">Get In Touch</h2>
+          <div class="contact-content">
+            <div class="contact-info">
+              <h3>Let's Connect</h3>
+              <div class="contact-item">
+                <div class="icon-box">
+                  <ion-icon name="mail-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                  <h4>Email</h4>
+                  <p>edison.u@eagles.oc.edu</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="icon-box">
+                  <ion-icon name="phone-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                  <h4>Phone</h4>
+                  <p>+1 (405) 856-5948</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="icon-box">
+                  <ion-icon name="location-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                  <h4>Location</h4>
+                  <p>Oklahoma City, OK</p>
+                </div>
+              </div>
+            </div>
+
+            <form class="contact-form">
+              <h3>Send Message</h3>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <span>Send Message</span>
+                <ion-icon name="send-outline"></ion-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">&copy; 2024 Edison Uwamungu. All rights reserved.</p>
+    </div>
+  </footer>
 
-
-
-
-
-  <!--
-    - custom js link
-  -->
+  <!-- Custom JavaScript -->
   <script src="./assets/js/script.js"></script>
-
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 
