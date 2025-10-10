@@ -1,5 +1,5 @@
 /**
- * Modern Portfolio JavaScript
+ * Modern Terminal Portfolio JavaScript
  * Interactive features for Edison Uwamungu's portfolio
  */
 
@@ -18,7 +18,7 @@ const loading = document.getElementById('loading');
 window.addEventListener('load', () => {
   setTimeout(() => {
     loading.classList.add('hidden');
-  }, 1000);
+  }, 1500);
 });
 
 // Sidebar Toggle
@@ -50,7 +50,7 @@ navbarLinks.forEach(link => {
     const targetSection = document.querySelector(targetId);
     
     if (targetSection) {
-      const offsetTop = targetSection.offsetTop - 80; // Account for fixed navbar
+      const offsetTop = targetSection.offsetTop - 80;
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
@@ -90,18 +90,67 @@ filterBtns.forEach(btn => {
     filterBtns.forEach(filterBtn => filterBtn.classList.remove('active'));
     btn.classList.add('active');
     
-    // Filter project items
-    projectItems.forEach(item => {
+    // Filter project items with animation
+    projectItems.forEach((item, index) => {
       const itemCategory = item.getAttribute('data-category');
       
       if (filterValue === 'all' || itemCategory === filterValue) {
-        item.style.display = 'block';
-        item.style.animation = 'scale 0.3s ease forwards';
+        setTimeout(() => {
+          item.style.display = 'block';
+          item.style.animation = 'fadeIn 0.6s ease forwards';
+        }, index * 100);
       } else {
         item.style.display = 'none';
       }
     });
   });
+});
+
+// Terminal Typing Animation
+function typeTerminalText() {
+  const terminalLines = document.querySelectorAll('.terminal-line');
+  let delay = 0;
+  
+  terminalLines.forEach((line, index) => {
+    setTimeout(() => {
+      line.style.opacity = '1';
+      line.style.transform = 'translateY(0)';
+      
+      // Add typing effect to commands
+      const command = line.querySelector('.terminal-command');
+      if (command && command.textContent !== '_') {
+        const text = command.textContent;
+        command.textContent = '';
+        command.style.borderRight = '2px solid #7c3aed';
+        
+        let i = 0;
+        const typeInterval = setInterval(() => {
+          command.textContent += text[i];
+          i++;
+          if (i >= text.length) {
+            clearInterval(typeInterval);
+            command.style.borderRight = 'none';
+            
+            // Show output after command
+            setTimeout(() => {
+              const output = line.nextElementSibling;
+              if (output && output.classList.contains('terminal-output')) {
+                output.style.opacity = '1';
+                output.style.transform = 'translateY(0)';
+              }
+            }, 500);
+          }
+        }, 100);
+      }
+    }, delay);
+    
+    delay += 1000;
+  });
+}
+
+// Initialize terminal animation
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(typeTerminalText, 2000);
 });
 
 // Scroll Reveal Animation
@@ -120,7 +169,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for scroll reveal
 document.addEventListener('DOMContentLoaded', () => {
-  const revealElements = document.querySelectorAll('.service-item, .project-item, .timeline-item, .skills-item');
+  const revealElements = document.querySelectorAll('.service-item, .project-item, .skills-item, .timeline-item');
   revealElements.forEach(element => {
     element.classList.add('scroll-reveal');
     observer.observe(element);
@@ -187,15 +236,15 @@ function showNotification(message, type = 'info') {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: var(--bg-glass);
-    backdrop-filter: blur(20px);
+    background: var(--bg-card);
     border: 1px solid var(--border-primary);
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--radius-md);
     padding: 1rem 1.5rem;
     color: var(--text-primary);
     z-index: var(--z-tooltip);
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    box-shadow: var(--shadow-lg);
   `;
   
   document.body.appendChild(notification);
@@ -214,47 +263,24 @@ function showNotification(message, type = 'info') {
   }, 5000);
 }
 
-// Parallax Effect for Hero Section
-window.addEventListener('scroll', () => {
-  const scrolled = window.pageYOffset;
-  const hero = document.querySelector('.hero');
-  
-  if (hero) {
-    const rate = scrolled * -0.5;
-    hero.style.transform = `translateY(${rate}px)`;
+// Terminal Cursor Blink
+function blinkCursor() {
+  const cursor = document.querySelector('.terminal-cursor');
+  if (cursor) {
+    setInterval(() => {
+      cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+    }, 500);
   }
-});
-
-// Typing Animation for Hero Title
-function typeWriter(element, text, speed = 100) {
-  let i = 0;
-  element.innerHTML = '';
-  
-  function type() {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, speed);
-    }
-  }
-  
-  type();
 }
 
-// Initialize typing animation when page loads
+// Initialize cursor blink
 document.addEventListener('DOMContentLoaded', () => {
-  const heroTitle = document.querySelector('.hero-title');
-  if (heroTitle) {
-    const originalText = heroTitle.textContent;
-    setTimeout(() => {
-      typeWriter(heroTitle, originalText, 50);
-    }, 1000);
-  }
+  setTimeout(blinkCursor, 3000);
 });
 
 // Add hover effects to interactive elements
 document.addEventListener('DOMContentLoaded', () => {
-  const interactiveElements = document.querySelectorAll('.btn, .service-item, .project-item, .skills-item');
+  const interactiveElements = document.querySelectorAll('.btn, .service-item, .project-item, .skills-item, .contact-item');
   
   interactiveElements.forEach(element => {
     element.addEventListener('mouseenter', () => {
@@ -289,23 +315,12 @@ const imageObserver = new IntersectionObserver((entries) => {
 
 images.forEach(img => imageObserver.observe(img));
 
-// Add smooth transitions to all elements
-document.addEventListener('DOMContentLoaded', () => {
-  const style = document.createElement('style');
-  style.textContent = `
-    * {
-      transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
-    }
-  `;
-  document.head.appendChild(style);
-});
-
 // Console welcome message
 console.log(`
-%c👋 Welcome to Edison Uwamungu's Portfolio!
+%c🚀 Welcome to Edison Uwamungu's Terminal Portfolio!
 %c
 %cThis portfolio was built with modern web technologies:
-%c• HTML5 & CSS3 with Glassmorphism design
+%c• HTML5 & CSS3 with Terminal/VS Code inspired design
 %c• Vanilla JavaScript for smooth interactions
 %c• Responsive design for all devices
 %c• Optimized for performance and accessibility
@@ -315,18 +330,22 @@ console.log(`
 %cContact: edison.u@eagles.oc.edu
 %cGitHub: https://github.com/iamedisonu
 %cLinkedIn: https://www.linkedin.com/in/iamedisonu/
+%c
+%cType 'help' for available commands (just kidding, this is a portfolio!)
 `,
-  'color: #8B5CF6; font-size: 16px; font-weight: bold;',
+  'color: #7c3aed; font-size: 16px; font-weight: bold;',
   '',
-  'color: #B8BCC8; font-size: 14px;',
-  'color: #06B6D4; font-size: 12px;',
-  'color: #06B6D4; font-size: 12px;',
-  'color: #06B6D4; font-size: 12px;',
-  'color: #06B6D4; font-size: 12px;',
+  'color: #8b949e; font-size: 14px;',
+  'color: #58a6ff; font-size: 12px;',
+  'color: #58a6ff; font-size: 12px;',
+  'color: #58a6ff; font-size: 12px;',
+  'color: #58a6ff; font-size: 12px;',
   '',
-  'color: #B8BCC8; font-size: 12px;',
+  'color: #8b949e; font-size: 12px;',
   '',
-  'color: #8B5CF6; font-size: 12px; font-weight: bold;',
-  'color: #8B5CF6; font-size: 12px; font-weight: bold;',
-  'color: #8B5CF6; font-size: 12px; font-weight: bold;'
+  'color: #7c3aed; font-size: 12px; font-weight: bold;',
+  'color: #7c3aed; font-size: 12px; font-weight: bold;',
+  'color: #7c3aed; font-size: 12px; font-weight: bold;',
+  '',
+  'color: #3fb950; font-size: 12px; font-style: italic;'
 );
