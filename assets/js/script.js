@@ -919,31 +919,84 @@ function initProjectCards() {
 
 // Contact Form
 function initContactForm() {
-  const contactForm = document.querySelector('form');
-  if (!contactForm) return;
+  const contactForm = document.querySelector('.contact-form');
+  if (!contactForm) {
+    console.log('Contact form not found');
+    return;
+  }
+  console.log('Contact form found:', contactForm);
   
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    console.log('Form submitted');
     
     const formData = new FormData(this);
     const name = formData.get('name');
     const email = formData.get('email');
+    const subject = formData.get('subject');
     const message = formData.get('message');
     
+    console.log('Form data:', { name, email, subject, message });
+    
+    // Validation
     if (!name || !email || !message) {
-      showNotification('Please fill in all fields', 'error');
+      console.log('Validation failed: missing required fields');
+      showNotification('Please fill in all required fields', 'error');
       return;
     }
     
-    if (!email.includes('@')) {
+    if (!isValidEmail(email)) {
+      console.log('Validation failed: invalid email');
       showNotification('Please enter a valid email address', 'error');
       return;
     }
     
-    // Simulate form submission
-    showNotification('Thank you for your message! I will get back to you soon.', 'success');
-    this.reset();
+    // Get submit button
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show loading state
+    submitBtn.innerHTML = '<span>Sending...</span>';
+    submitBtn.disabled = true;
+    
+    try {
+      // Send email using mailto
+      console.log('Attempting to send email...');
+      sendEmail(name, email, subject || 'Portfolio Contact Form', message);
+      showNotification('Your email client has opened with the message pre-filled. Please send the email to complete the process.', 'success');
+      this.reset();
+    } catch (error) {
+      console.error('Error sending email:', error);
+      showNotification('Sorry, there was an error. Please contact me directly at edison.u@eagles.oc.edu', 'error');
+    } finally {
+      // Reset button
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+    }
   });
+}
+
+// Email validation function
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Send email function - Working solution
+function sendEmail(name, email, subject, message) {
+  console.log('Sending email with data:', { name, email, subject, message });
+  
+  // Create a mailto link that will open the user's email client
+  const mailtoLink = `mailto:edison.u@eagles.oc.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+  )}`;
+  
+  console.log('Mailto link:', mailtoLink);
+  
+  // Open the mailto link
+  window.location.href = mailtoLink;
+  
+  return true;
 }
 
 // Scroll to Top Button
