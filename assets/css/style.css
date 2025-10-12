@@ -120,13 +120,13 @@
   --sidebar-width: 280px;
   --section-padding: var(--space-4xl) 0;
   
-  /* Grid Spacing - Standardized */
-  --grid-gap: var(--space-xl);
-  --grid-gap-sm: var(--space-lg);
-  --grid-gap-xs: var(--space-md);
-  --card-padding: var(--space-xl);
-  --card-padding-sm: var(--space-lg);
-  --card-padding-xs: var(--space-md);
+  /* Grid Spacing - Reduced for tighter layout */
+  --grid-gap: var(--space-lg);
+  --grid-gap-sm: var(--space-md);
+  --grid-gap-xs: var(--space-sm);
+  --card-padding: var(--space-lg);
+  --card-padding-sm: var(--space-md);
+  --card-padding-xs: var(--space-sm);
   
   /**
    * Transitions
@@ -245,7 +245,7 @@ body {
 }
 
 .section {
-  padding: var(--space-4xl) 0;
+  padding: var(--space-3xl) 0;
   position: relative;
   background: var(--bg-primary);
 }
@@ -815,7 +815,7 @@ body {
   font-size: var(--fs-2);
   font-weight: var(--fw-700);
   text-align: center;
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
   color: var(--text-primary);
   position: relative;
 }
@@ -846,8 +846,8 @@ body {
 .about-tabs {
   display: flex;
   justify-content: center;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-3xl);
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
   flex-wrap: wrap;
 }
 
@@ -938,7 +938,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--grid-gap);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-xl);
 }
 
 .service-item {
@@ -992,8 +992,8 @@ body {
 .portfolio-filters {
   display: flex;
   justify-content: center;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-3xl);
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
   flex-wrap: wrap;
 }
 
@@ -1021,7 +1021,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--grid-gap);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-xl);
 }
 
 .project-item {
@@ -1299,7 +1299,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--grid-gap);
-  margin-bottom: var(--space-3xl);
+  margin-bottom: var(--space-2xl);
 }
 
 .contact-card {
@@ -2145,7 +2145,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--grid-gap);
-  margin-top: var(--space-lg);
+  margin-top: var(--space-md);
 }
 
 .skill-category {
@@ -2246,7 +2246,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--grid-gap);
-  margin-top: var(--space-lg);
+  margin-top: var(--space-md);
 }
 
 .certification-item {
