@@ -601,7 +601,7 @@ function initProgressBar() {
 
 // Skill Bars and Project Cards animations handled by scroll reveal
 
-// Contact Form
+// Contact Form - Simplified and Fixed
 function initContactForm() {
   const contactForm = document.querySelector('.contact-form');
   if (!contactForm) {
@@ -613,6 +613,53 @@ function initContactForm() {
   const submitBtn = document.getElementById('submit-btn');
   const clearBtn = document.getElementById('clear-btn');
   const formStatus = document.getElementById('form-status');
+  
+  // Helper functions defined first
+  function showFormStatus(message, type) {
+    if (formStatus) {
+      formStatus.textContent = message;
+      formStatus.className = `form-status ${type}`;
+    }
+  }
+  
+  function hideFormStatus() {
+    if (formStatus) {
+      formStatus.className = 'form-status';
+    }
+  }
+  
+  function setFormLoading(loading) {
+    if (loading) {
+      contactForm.classList.add('loading');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<span>Sending...</span><ion-icon name="hourglass-outline"></ion-icon>';
+        submitBtn.disabled = true;
+      }
+      if (clearBtn) {
+        clearBtn.disabled = true;
+      }
+    } else {
+      contactForm.classList.remove('loading');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<span>Send Message</span><ion-icon name="send-outline"></ion-icon>';
+        submitBtn.disabled = false;
+      }
+      if (clearBtn) {
+        clearBtn.disabled = false;
+      }
+    }
+  }
+  
+  function clearAllFieldErrors() {
+    const inputs = contactForm.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+      input.classList.remove('error');
+      const errorDiv = input.parentNode.querySelector('.field-error');
+      if (errorDiv) {
+        errorDiv.remove();
+      }
+    });
+  }
   
   // Add real-time validation
   const inputs = contactForm.querySelectorAll('input, textarea');
@@ -632,15 +679,16 @@ function initContactForm() {
     });
   }
   
+  // Form submission
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     console.log('Form submitted');
     
     const formData = new FormData(this);
-    const name = formData.get('name').trim();
-    const email = formData.get('email').trim();
-    const subject = formData.get('subject').trim();
-    const message = formData.get('message').trim();
+    const name = formData.get('name') ? formData.get('name').trim() : '';
+    const email = formData.get('email') ? formData.get('email').trim() : '';
+    const subject = formData.get('subject') ? formData.get('subject').trim() : '';
+    const message = formData.get('message') ? formData.get('message').trim() : '';
     
     console.log('Form data:', { name, email, subject, message });
     
@@ -682,40 +730,6 @@ function initContactForm() {
       setFormLoading(false);
     }
   });
-  
-  // Helper functions
-  function setFormLoading(loading) {
-    if (loading) {
-      contactForm.classList.add('loading');
-      submitBtn.innerHTML = '<span>Sending...</span><ion-icon name="hourglass-outline"></ion-icon>';
-      submitBtn.disabled = true;
-      clearBtn.disabled = true;
-    } else {
-      contactForm.classList.remove('loading');
-      submitBtn.innerHTML = '<span>Send Message</span><ion-icon name="send-outline"></ion-icon>';
-      submitBtn.disabled = false;
-      clearBtn.disabled = false;
-    }
-  }
-  
-  function showFormStatus(message, type) {
-    formStatus.textContent = message;
-    formStatus.className = `form-status ${type}`;
-  }
-  
-  function hideFormStatus() {
-    formStatus.className = 'form-status';
-  }
-  
-  function clearAllFieldErrors() {
-    inputs.forEach(input => {
-      input.classList.remove('error');
-      const errorDiv = input.parentNode.querySelector('.field-error');
-      if (errorDiv) {
-        errorDiv.remove();
-      }
-    });
-  }
 }
 
 // Field validation
@@ -782,18 +796,29 @@ function sendEmail(name, email, subject, message) {
     
     console.log('Mailto link:', mailtoLink);
     
-    // Try to open the mailto link
-    const mailtoWindow = window.open(mailtoLink, '_blank');
-    
-    // If popup was blocked, try direct navigation
-    if (!mailtoWindow || mailtoWindow.closed || typeof mailtoWindow.closed == 'undefined') {
-      window.location.href = mailtoLink;
-    }
+    // Create a temporary link element and click it (more reliable)
+    const tempLink = document.createElement('a');
+    tempLink.href = mailtoLink;
+    tempLink.style.display = 'none';
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    document.body.removeChild(tempLink);
     
     return true;
   } catch (error) {
     console.error('Error opening email client:', error);
-    return false;
+    
+    // Fallback: try window.open
+    try {
+      const mailtoLink = `mailto:edison.u@eagles.oc.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+      )}`;
+      window.open(mailtoLink, '_blank');
+      return true;
+    } catch (fallbackError) {
+      console.error('Fallback also failed:', fallbackError);
+      return false;
+    }
   }
 }
 
