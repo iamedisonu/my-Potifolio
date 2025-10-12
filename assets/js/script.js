@@ -88,30 +88,127 @@ tabBtns.forEach(btn => {
   });
 });
 
-// Portfolio Filter Functionality
+// Enhanced Portfolio Filter Functionality
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const filterValue = btn.getAttribute('data-filter-btn');
     
-    // Update active filter button
-    filterBtns.forEach(filterBtn => filterBtn.classList.remove('active'));
-    btn.classList.add('active');
+    // Add loading state to filter buttons
+    filterBtns.forEach(filterBtn => {
+      filterBtn.classList.remove('active');
+      filterBtn.style.pointerEvents = 'none';
+    });
     
-    // Filter project items with animation
+    // Add active state with delay for better UX
+    setTimeout(() => {
+      btn.classList.add('active');
+      filterBtns.forEach(filterBtn => {
+        filterBtn.style.pointerEvents = 'auto';
+      });
+    }, 100);
+    
+    // Enhanced filtering with better animations
+    const visibleItems = [];
+    const hiddenItems = [];
+    
     projectItems.forEach((item, index) => {
       const itemCategory = item.getAttribute('data-category');
       
       if (filterValue === 'all' || itemCategory === filterValue) {
-        setTimeout(() => {
-          item.style.display = 'block';
-          item.style.animation = 'fadeIn 0.6s ease forwards';
-        }, index * 100);
+        visibleItems.push({ item, index });
       } else {
-        item.style.display = 'none';
+        hiddenItems.push({ item, index });
       }
     });
+    
+    // First, hide items that should be hidden
+    hiddenItems.forEach(({ item }) => {
+      item.style.opacity = '0';
+      item.style.transform = 'scale(0.8)';
+      setTimeout(() => {
+        item.style.display = 'none';
+      }, 300);
+    });
+    
+    // Then, show items that should be visible with staggered animation
+    visibleItems.forEach(({ item, index }) => {
+      item.style.display = 'block';
+      setTimeout(() => {
+        item.style.opacity = '1';
+        item.style.transform = 'scale(1)';
+        item.style.transition = 'all 0.4s ease';
+      }, 100 + (index * 50));
+    });
+    
+    // Add filter count indicator
+    updateFilterCount(visibleItems.length);
   });
 });
+
+// Function to update filter count
+function updateFilterCount(count) {
+  let countElement = document.querySelector('.filter-count');
+  if (!countElement) {
+    countElement = document.createElement('span');
+    countElement.className = 'filter-count';
+    countElement.style.cssText = `
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--terminal-accent);
+      color: var(--text-primary);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+    `;
+    document.querySelector('.portfolio-filters').appendChild(countElement);
+  }
+  countElement.textContent = count;
+}
+
+// Portfolio Search Functionality
+function initPortfolioSearch() {
+  const searchInput = document.getElementById('portfolio-search');
+  if (!searchInput) return;
+  
+  searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const activeFilter = document.querySelector('.filter-btn.active');
+    const currentFilter = activeFilter ? activeFilter.getAttribute('data-filter-btn') : 'all';
+    
+    projectItems.forEach((item) => {
+      const title = item.querySelector('.project-title').textContent.toLowerCase();
+      const category = item.querySelector('.project-category').textContent.toLowerCase();
+      const itemCategory = item.getAttribute('data-category');
+      
+      const matchesSearch = title.includes(searchTerm) || category.includes(searchTerm);
+      const matchesFilter = currentFilter === 'all' || itemCategory === currentFilter;
+      
+      if (matchesSearch && matchesFilter) {
+        item.style.display = 'block';
+        item.style.opacity = '1';
+        item.style.transform = 'scale(1)';
+      } else {
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          item.style.display = 'none';
+        }, 300);
+      }
+    });
+    
+    // Update count for search results
+    const visibleCount = Array.from(projectItems).filter(item => 
+      item.style.display !== 'none' && item.style.opacity !== '0'
+    ).length;
+    updateFilterCount(visibleCount);
+  });
+}
 
 // Terminal class removed - not implemented in HTML
 
@@ -127,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initScrollToTop();
   initLoadingScreen();
+  initPortfolioSearch();
 });
 
 // Theme Toggle Functionality

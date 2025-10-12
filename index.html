@@ -328,13 +328,19 @@
       <section class="portfolio section" id="portfolio">
         <div class="container">
           <h2 class="section-title">My Portfolio</h2>
-          <div class="portfolio-filter">
-            <button class="filter-btn active" data-filter-btn="all">All</button>
-            <button class="filter-btn" data-filter-btn="python">Python Projects</button>
-            <button class="filter-btn" data-filter-btn="web">Web Development</button>
-            <button class="filter-btn" data-filter-btn="ai">AI/ML</button>
-            <button class="filter-btn" data-filter-btn="security">Cybersecurity</button>
-              </div>
+          <div class="portfolio-controls">
+            <div class="portfolio-search">
+              <input type="text" id="portfolio-search" placeholder="Search projects..." class="search-input">
+              <ion-icon name="search-outline" class="search-icon"></ion-icon>
+            </div>
+            <div class="portfolio-filter">
+              <button class="filter-btn active" data-filter-btn="all">All</button>
+              <button class="filter-btn" data-filter-btn="python">Python</button>
+              <button class="filter-btn" data-filter-btn="web">Web Dev</button>
+              <button class="filter-btn" data-filter-btn="ai">AI/ML</button>
+              <button class="filter-btn" data-filter-btn="security">Security</button>
+            </div>
+          </div>
 
           <div class="portfolio-grid">
             <!-- Featured Current Project -->
