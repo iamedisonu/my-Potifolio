@@ -16,9 +16,47 @@ const loading = document.getElementById('loading');
 
 // Loading Animation
 window.addEventListener('load', () => {
+  // Preload critical images
+  const criticalImages = [
+    './assets/images/my-avatar.png',
+    './assets/images/logo.svg'
+  ];
+  
+  let loadedImages = 0;
+  const totalImages = criticalImages.length;
+  
+  if (totalImages === 0) {
+    setTimeout(() => {
+      loading.classList.add('hidden');
+    }, 1000);
+    return;
+  }
+  
+  criticalImages.forEach(src => {
+    const img = new Image();
+    img.onload = () => {
+      loadedImages++;
+      if (loadedImages === totalImages) {
+        setTimeout(() => {
+          loading.classList.add('hidden');
+        }, 500);
+      }
+    };
+    img.onerror = () => {
+      loadedImages++;
+      if (loadedImages === totalImages) {
+        setTimeout(() => {
+          loading.classList.add('hidden');
+        }, 500);
+      }
+    };
+    img.src = src;
+  });
+  
+  // Fallback timeout
   setTimeout(() => {
     loading.classList.add('hidden');
-  }, 1500);
+  }, 3000);
 });
 
 // Sidebar Toggle
@@ -572,6 +610,13 @@ function initContactForm() {
   }
   console.log('Contact form found:', contactForm);
   
+  // Add real-time validation
+  const inputs = contactForm.querySelectorAll('input, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('blur', validateField);
+    input.addEventListener('input', clearFieldError);
+  });
+  
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     console.log('Form submitted');
@@ -602,6 +647,7 @@ function initContactForm() {
     const originalText = submitBtn.innerHTML;
     
     // Show loading state
+    this.classList.add('loading');
     submitBtn.innerHTML = '<span>Sending...</span>';
     submitBtn.disabled = true;
     
@@ -616,10 +662,57 @@ function initContactForm() {
       showNotification('Sorry, there was an error. Please contact me directly at edison.u@eagles.oc.edu', 'error');
     } finally {
       // Reset button
+      this.classList.remove('loading');
       submitBtn.innerHTML = originalText;
       submitBtn.disabled = false;
     }
   });
+}
+
+// Field validation
+function validateField(e) {
+  const field = e.target;
+  const value = field.value.trim();
+  
+  if (field.hasAttribute('required') && !value) {
+    showFieldError(field, 'This field is required');
+    return false;
+  }
+  
+  if (field.type === 'email' && value && !isValidEmail(value)) {
+    showFieldError(field, 'Please enter a valid email address');
+    return false;
+  }
+  
+  clearFieldError(field);
+  return true;
+}
+
+// Show field error
+function showFieldError(field, message) {
+  clearFieldError(field);
+  field.classList.add('error');
+  
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'field-error';
+  errorDiv.textContent = message;
+  errorDiv.style.cssText = `
+    color: var(--text-error);
+    font-size: var(--fs-9);
+    margin-top: var(--space-xs);
+  `;
+  
+  field.parentNode.appendChild(errorDiv);
+}
+
+// Clear field error
+function clearFieldError(e) {
+  const field = e.target || e;
+  field.classList.remove('error');
+  const errorDiv = field.parentNode.querySelector('.field-error');
+  if (errorDiv) {
+    errorDiv.remove();
+  }
 }
 
 // Email validation function
