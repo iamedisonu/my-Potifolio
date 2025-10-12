@@ -610,6 +610,10 @@ function initContactForm() {
   }
   console.log('Contact form found:', contactForm);
   
+  const submitBtn = document.getElementById('submit-btn');
+  const clearBtn = document.getElementById('clear-btn');
+  const formStatus = document.getElementById('form-status');
+  
   // Add real-time validation
   const inputs = contactForm.querySelectorAll('input, textarea');
   inputs.forEach(input => {
@@ -617,56 +621,101 @@ function initContactForm() {
     input.addEventListener('input', clearFieldError);
   });
   
+  // Clear form functionality
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      contactForm.reset();
+      clearAllFieldErrors();
+      hideFormStatus();
+      showFormStatus('Form cleared', 'info');
+      setTimeout(hideFormStatus, 3000);
+    });
+  }
+  
   contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     console.log('Form submitted');
     
     const formData = new FormData(this);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
+    const name = formData.get('name').trim();
+    const email = formData.get('email').trim();
+    const subject = formData.get('subject').trim();
+    const message = formData.get('message').trim();
     
     console.log('Form data:', { name, email, subject, message });
+    
+    // Clear previous errors
+    clearAllFieldErrors();
+    hideFormStatus();
     
     // Validation
     if (!name || !email || !message) {
       console.log('Validation failed: missing required fields');
-      showNotification('Please fill in all required fields', 'error');
+      showFormStatus('Please fill in all required fields', 'error');
       return;
     }
     
     if (!isValidEmail(email)) {
       console.log('Validation failed: invalid email');
-      showNotification('Please enter a valid email address', 'error');
+      showFormStatus('Please enter a valid email address', 'error');
       return;
     }
     
-    // Get submit button
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    
     // Show loading state
-    this.classList.add('loading');
-    submitBtn.innerHTML = '<span>Sending...</span>';
-    submitBtn.disabled = true;
+    setFormLoading(true);
     
     try {
       // Send email using mailto
       console.log('Attempting to send email...');
-      sendEmail(name, email, subject || 'Portfolio Contact Form', message);
-      showNotification('Your email client has opened with the message pre-filled. Please send the email to complete the process.', 'success');
-      this.reset();
+      const success = sendEmail(name, email, subject || 'Portfolio Contact Form', message);
+      
+      if (success) {
+        showFormStatus('Your email client has opened with the message pre-filled. Please send the email to complete the process.', 'success');
+        contactForm.reset();
+      } else {
+        showFormStatus('Sorry, there was an error. Please contact me directly at edison.u@eagles.oc.edu', 'error');
+      }
     } catch (error) {
       console.error('Error sending email:', error);
-      showNotification('Sorry, there was an error. Please contact me directly at edison.u@eagles.oc.edu', 'error');
+      showFormStatus('Sorry, there was an error. Please contact me directly at edison.u@eagles.oc.edu', 'error');
     } finally {
-      // Reset button
-      this.classList.remove('loading');
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
+      setFormLoading(false);
     }
   });
+  
+  // Helper functions
+  function setFormLoading(loading) {
+    if (loading) {
+      contactForm.classList.add('loading');
+      submitBtn.innerHTML = '<span>Sending...</span><ion-icon name="hourglass-outline"></ion-icon>';
+      submitBtn.disabled = true;
+      clearBtn.disabled = true;
+    } else {
+      contactForm.classList.remove('loading');
+      submitBtn.innerHTML = '<span>Send Message</span><ion-icon name="send-outline"></ion-icon>';
+      submitBtn.disabled = false;
+      clearBtn.disabled = false;
+    }
+  }
+  
+  function showFormStatus(message, type) {
+    formStatus.textContent = message;
+    formStatus.className = `form-status ${type}`;
+  }
+  
+  function hideFormStatus() {
+    formStatus.className = 'form-status';
+  }
+  
+  function clearAllFieldErrors() {
+    inputs.forEach(input => {
+      input.classList.remove('error');
+      const errorDiv = input.parentNode.querySelector('.field-error');
+      if (errorDiv) {
+        errorDiv.remove();
+      }
+    });
+  }
 }
 
 // Field validation
@@ -721,21 +770,31 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-// Send email function - Working solution
+// Send email function - Enhanced solution
 function sendEmail(name, email, subject, message) {
   console.log('Sending email with data:', { name, email, subject, message });
   
-  // Create a mailto link that will open the user's email client
-  const mailtoLink = `mailto:edison.u@eagles.oc.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-    `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-  )}`;
-  
-  console.log('Mailto link:', mailtoLink);
-  
-  // Open the mailto link
-  window.location.href = mailtoLink;
-  
-  return true;
+  try {
+    // Create a mailto link that will open the user's email client
+    const mailtoLink = `mailto:edison.u@eagles.oc.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    )}`;
+    
+    console.log('Mailto link:', mailtoLink);
+    
+    // Try to open the mailto link
+    const mailtoWindow = window.open(mailtoLink, '_blank');
+    
+    // If popup was blocked, try direct navigation
+    if (!mailtoWindow || mailtoWindow.closed || typeof mailtoWindow.closed == 'undefined') {
+      window.location.href = mailtoLink;
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Error opening email client:', error);
+    return false;
+  }
 }
 
 // Scroll to Top Button

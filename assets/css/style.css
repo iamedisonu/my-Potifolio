@@ -1599,7 +1599,7 @@ body {
   font-size: var(--fs-5);
   font-weight: var(--fw-600);
   color: var(--text-primary);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
   text-align: center;
   position: relative;
 }
@@ -1614,6 +1614,14 @@ body {
   height: 2px;
   background: var(--text-accent);
   border-radius: 1px;
+}
+
+.form-description {
+  font-size: var(--fs-8);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  line-height: 1.6;
 }
 
 .contact-form {
@@ -1668,10 +1676,48 @@ body {
   line-height: 1.6;
 }
 
+.form-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+}
+
 .contact-form .btn {
-  margin-top: var(--space-md);
-  justify-self: center;
-  min-width: 200px;
+  min-width: 150px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.form-status {
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: var(--fw-500);
+  display: none;
+}
+
+.form-status.success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid var(--text-success);
+  color: var(--text-success);
+  display: block;
+}
+
+.form-status.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--text-error);
+  color: var(--text-error);
+  display: block;
+}
+
+.form-status.info {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid var(--text-accent);
+  color: var(--text-accent);
+  display: block;
 }
 
 /* Form validation styles */
@@ -1957,6 +2003,16 @@ body {
   
   .contact-form-section {
     padding: var(--space-lg);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-form .btn {
+    width: 100%;
+    max-width: 300px;
   }
 }
 
