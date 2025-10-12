@@ -514,14 +514,21 @@ body {
   z-index: var(--z-fixed);
   transition: var(--transition-fast);
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar-list {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: var(--space-lg);
+  gap: var(--space-md);
   list-style: none;
+  flex-wrap: wrap;
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .navbar-link {
@@ -529,10 +536,11 @@ body {
   text-decoration: none;
   font-weight: var(--fw-500);
   font-size: var(--fs-8);
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--space-sm);
   border-radius: var(--radius-sm);
   transition: var(--transition-fast);
   position: relative;
+  white-space: nowrap;
 }
 
 .navbar-link::before {
@@ -571,6 +579,7 @@ body {
   padding: var(--space-sm);
   border-radius: var(--radius-sm);
   transition: var(--transition-fast);
+  order: -1;
 }
 
 .mobile-menu-btn:hover,
@@ -584,6 +593,15 @@ body {
 @media (max-width: 768px) {
   .mobile-menu-btn {
     display: block;
+  }
+  
+  .navbar-list {
+    display: none;
+  }
+  
+  .navbar {
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
   }
 }
 
@@ -1505,6 +1523,17 @@ body {
 }
 
 /* Tablet Portrait (768px and up) */
+@media (max-width: 992px) {
+  .navbar-list {
+    gap: var(--space-sm);
+  }
+  
+  .navbar-link {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--fs-9);
+  }
+}
+
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;
