@@ -22,22 +22,29 @@ window.addEventListener('load', () => {
 });
 
 // Sidebar Toggle
-sidebarBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-  const isActive = sidebar.classList.contains('active');
-  sidebarBtn.innerHTML = isActive 
-    ? '<span>Hide Contacts</span><ion-icon name="chevron-up"></ion-icon>'
-    : '<span>Show Contacts</span><ion-icon name="chevron-down"></ion-icon>';
-});
+if (sidebarBtn) {
+  sidebarBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    const isActive = sidebar.classList.contains('active');
+    sidebarBtn.innerHTML = isActive 
+      ? '<span>Hide Contacts</span><ion-icon name="chevron-up" aria-hidden="true"></ion-icon>'
+      : '<span>Show Contacts</span><ion-icon name="chevron-down" aria-hidden="true"></ion-icon>';
+    
+    // Update ARIA attributes
+    sidebarBtn.setAttribute('aria-expanded', isActive);
+  });
+}
 
 // Mobile Menu Toggle
-mobileMenuBtn.addEventListener('click', () => {
-  sidebar.classList.toggle('active');
-});
+if (mobileMenuBtn) {
+  mobileMenuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+  });
+}
 
 // Close sidebar when clicking outside
 document.addEventListener('click', (e) => {
-  if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+  if (sidebar && mobileMenuBtn && !sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
     sidebar.classList.remove('active');
   }
 });
@@ -106,336 +113,7 @@ filterBtns.forEach(btn => {
   });
 });
 
-// Interactive Terminal System
-class Terminal {
-  constructor() {
-    this.terminalBody = document.getElementById('terminal-body');
-    this.currentLine = null;
-    this.commandHistory = [];
-    this.historyIndex = -1;
-    this.isTyping = false;
-    
-    this.commands = {
-      'help': () => this.showHelp(),
-      'about': () => this.showAbout(),
-      'projects': () => this.showProjects(),
-      'skills': () => this.showSkills(),
-      'contact': () => this.showContact(),
-      'clear': () => this.clearTerminal(),
-      'github': () => this.openGitHub(),
-      'linkedin': () => this.openLinkedIn(),
-      'whoami': () => this.showWhoami(),
-      'ls': () => this.showList(),
-      'cat': () => this.showCat(),
-      'git': () => this.showGit(),
-      'pwd': () => this.showPwd(),
-      'date': () => this.showDate(),
-      'echo': (args) => this.showEcho(args)
-    };
-    
-    this.init();
-  }
-  
-  init() {
-    if (!this.terminalBody) {
-      console.error('Terminal body not found');
-      return;
-    }
-    
-    // Make terminal focusable
-    this.terminalBody.setAttribute('tabindex', '0');
-    this.terminalBody.style.outline = 'none';
-    
-    // Add event listeners
-    this.terminalBody.addEventListener('click', () => this.focusTerminal());
-    this.terminalBody.addEventListener('keydown', (e) => this.handleKeyPress(e));
-    
-    // Initial typing animation
-    setTimeout(() => this.typeInitialCommands(), 1000);
-  }
-  
-  focusTerminal() {
-    this.terminalBody.focus();
-  }
-  
-  handleKeyPress(e) {
-    if (this.isTyping) return;
-    
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      this.executeCommand();
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      this.navigateHistory(-1);
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      this.navigateHistory(1);
-    } else if (e.key === 'Tab') {
-      e.preventDefault();
-      this.autoComplete();
-    } else if (e.key === 'c' && e.ctrlKey) {
-      e.preventDefault();
-      this.interruptCommand();
-    }
-  }
-  
-  createNewLine() {
-    const line = document.createElement('div');
-    line.className = 'terminal-line';
-    line.innerHTML = `
-      <span class="terminal-prompt">edison@portfolio:~$</span>
-      <span class="terminal-command" contenteditable="true" data-command=""></span>
-      <span class="terminal-cursor"></span>
-    `;
-    
-    this.terminalBody.appendChild(line);
-    this.currentLine = line;
-    
-    // Focus on the command input
-    const commandInput = line.querySelector('.terminal-command');
-    commandInput.focus();
-    
-    // Add event listener for typing
-    commandInput.addEventListener('input', (e) => {
-      this.updateCursor();
-    });
-    
-    return line;
-  }
-  
-  executeCommand() {
-    const commandInput = this.currentLine.querySelector('.terminal-command');
-    const command = commandInput.textContent.trim();
-    
-    if (!command) {
-      this.createNewLine();
-      return;
-    }
-    
-    // Add to history
-    this.commandHistory.unshift(command);
-    this.historyIndex = -1;
-    
-    // Remove contenteditable and cursor
-    commandInput.removeAttribute('contenteditable');
-    commandInput.style.borderRight = 'none';
-    this.currentLine.querySelector('.terminal-cursor').remove();
-    
-    // Execute command
-    const [cmd, ...args] = command.split(' ');
-    const output = this.runCommand(cmd, args);
-    
-    // Show output
-    if (output) {
-      const outputDiv = document.createElement('div');
-      outputDiv.className = 'terminal-output';
-      outputDiv.innerHTML = output;
-      this.terminalBody.appendChild(outputDiv);
-    }
-    
-    // Create new line
-    setTimeout(() => this.createNewLine(), 100);
-  }
-  
-  runCommand(cmd, args = []) {
-    if (this.commands[cmd]) {
-      return this.commands[cmd](args);
-    } else {
-      return `Command not found: ${cmd}. Type 'help' for available commands.`;
-    }
-  }
-  
-  showHelp() {
-    return `Available commands:<br>
-• help - Show this help message<br>
-• about - About me<br>
-• projects - List my projects<br>
-• skills - Show my skills<br>
-• contact - Contact information<br>
-• clear - Clear terminal<br>
-• github - Open GitHub profile<br>
-• linkedin - Open LinkedIn profile<br>
-• whoami - Show who I am<br>
-• ls - List files<br>
-• cat [file] - Display file contents<br>
-• git [command] - Git commands<br>
-• pwd - Print working directory<br>
-• date - Show current date<br>
-• echo [text] - Display text`;
-  }
-  
-  showAbout() {
-    return `I'm Edison Uwamungu, a Computer Science and Cybersecurity student at Oklahoma Christian University.<br>
-I'm passionate about technology, cybersecurity, and artificial intelligence.<br>
-Currently working on eagleAI, an innovative AI platform, while developing solutions that protect digital systems.`;
-  }
-  
-  showProjects() {
-    return `My Projects:<br>
-🦅 eagleAI - AI-powered platform (Currently Working)<br>
-🛒 Amazon Clone - E-commerce platform<br>
-🕷️ AI Web Scraper - Python automation<br>
-🌟 Bright Futures Hub - Educational platform<br>
-📊 Bulk Report Generator - Python automation<br>
-💼 Portfolio Website - Modern web design<br><br>
-Visit: <a href="https://github.com/iamedisonu" target="_blank" style="color: #58a6ff;">https://github.com/iamedisonu</a>`;
-  }
-  
-  showSkills() {
-    return `Technical Skills:<br>
-🐍 Python | JavaScript | C++ | Java<br>
-⚛️ React | Node.js | HTML/CSS<br>
-🤖 AI/ML | Machine Learning<br>
-🔒 Cybersecurity | Network Security<br>
-☁️ Cloud Computing | AWS<br>
-📊 Data Analysis | SQL<br>
-🛠️ Git | Docker | Linux`;
-  }
-  
-  showContact() {
-    return `Contact Information:<br>
-📧 Email: edison.u@eagles.oc.edu<br>
-💼 LinkedIn: <a href="https://www.linkedin.com/in/iamedisonu/" target="_blank" style="color: #58a6ff;">linkedin.com/in/iamedisonu</a><br>
-🐙 GitHub: <a href="https://github.com/iamedisonu" target="_blank" style="color: #58a6ff;">github.com/iamedisonu</a><br>
-🐦 Twitter: @edisonuwamungu<br><br>
-Feel free to reach out for opportunities or collaboration!`;
-  }
-  
-  clearTerminal() {
-    this.terminalBody.innerHTML = '';
-    this.createNewLine();
-    return null;
-  }
-  
-  openGitHub() {
-    window.open('https://github.com/iamedisonu', '_blank');
-    return 'Opening GitHub profile...';
-  }
-  
-  openLinkedIn() {
-    window.open('https://www.linkedin.com/in/iamedisonu/', '_blank');
-    return 'Opening LinkedIn profile...';
-  }
-  
-  showWhoami() {
-    return 'Computer Science Student | Cybersecurity Enthusiast | AI Developer';
-  }
-  
-  showList() {
-    return `projects/  skills.txt  resume.pdf  README.md<br>
-eagleAI/  amazon-clone/  ai-web-scraper/  bright-futures-hub/  bulk-report/`;
-  }
-  
-  showCat() {
-    return `Python | JavaScript | C++ | Java | React | Node.js | AI/ML | Cybersecurity`;
-  }
-  
-  showGit() {
-    return `On branch main<br>Your branch is up to date with 'origin/main'<br>nothing to commit, working tree clean`;
-  }
-  
-  showPwd() {
-    return '/home/edison/portfolio';
-  }
-  
-  showDate() {
-    return new Date().toString();
-  }
-  
-  showEcho(args) {
-    return args.join(' ');
-  }
-  
-  navigateHistory(direction) {
-    if (this.commandHistory.length === 0) return;
-    
-    this.historyIndex += direction;
-    
-    if (this.historyIndex < 0) this.historyIndex = 0;
-    if (this.historyIndex >= this.commandHistory.length) this.historyIndex = this.commandHistory.length - 1;
-    
-    const commandInput = this.currentLine.querySelector('.terminal-command');
-    commandInput.textContent = this.commandHistory[this.historyIndex] || '';
-  }
-  
-  autoComplete() {
-    const commandInput = this.currentLine.querySelector('.terminal-command');
-    const currentText = commandInput.textContent.toLowerCase();
-    
-    const matches = Object.keys(this.commands).filter(cmd => 
-      cmd.startsWith(currentText)
-    );
-    
-    if (matches.length === 1) {
-      commandInput.textContent = matches[0];
-    } else if (matches.length > 1) {
-      this.addOutput(`Possible completions: ${matches.join(' ')}`);
-    }
-  }
-  
-  interruptCommand() {
-    this.addOutput('^C');
-    this.createNewLine();
-  }
-  
-  addOutput(text) {
-    const outputDiv = document.createElement('div');
-    outputDiv.className = 'terminal-output';
-    outputDiv.innerHTML = text;
-    this.terminalBody.appendChild(outputDiv);
-  }
-  
-  updateCursor() {
-    // Cursor animation is handled by CSS
-  }
-  
-  typeInitialCommands() {
-    const terminalLines = document.querySelectorAll('.terminal-line');
-    let delay = 0;
-    
-    terminalLines.forEach((line, index) => {
-      setTimeout(() => {
-        line.style.opacity = '1';
-        line.style.transform = 'translateY(0)';
-        
-        // Add typing effect to commands
-        const command = line.querySelector('.terminal-command');
-        if (command && command.textContent !== '_') {
-          const text = command.textContent;
-          command.textContent = '';
-          command.style.borderRight = '2px solid #7c3aed';
-          
-          let i = 0;
-          const typeInterval = setInterval(() => {
-            command.textContent += text[i];
-            i++;
-            if (i >= text.length) {
-              clearInterval(typeInterval);
-              command.style.borderRight = 'none';
-              
-              // Show output after command
-              setTimeout(() => {
-                const output = line.nextElementSibling;
-                if (output && output.classList.contains('terminal-output')) {
-                  output.style.opacity = '1';
-                  output.style.transform = 'translateY(0)';
-                }
-              }, 500);
-            }
-          }, 100);
-        }
-      }, delay);
-      
-      delay += 1000;
-    });
-    
-    // After initial animation, make terminal interactive
-    setTimeout(() => {
-      this.isTyping = false;
-      this.createNewLine();
-    }, delay + 1000);
-  }
-}
+// Terminal class removed - not implemented in HTML
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -446,8 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHoverEffects();
   initSmoothScrolling();
   initProgressBar();
-  initSkillBars();
-  initProjectCards();
   initContactForm();
   initScrollToTop();
   initLoadingScreen();
@@ -520,16 +196,14 @@ function initResumeTabs() {
 function initMobileMenu() {
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const sidebar = document.querySelector('.sidebar');
-  const mainContent = document.querySelector('.main-content');
   
-  if (mobileMenuBtn && sidebar && mainContent) {
+  if (mobileMenuBtn && sidebar) {
     mobileMenuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('sidebar-open');
-      mainContent.classList.toggle('sidebar-open');
+      sidebar.classList.toggle('active');
       
       // Update button icon
       const icon = mobileMenuBtn.querySelector('ion-icon');
-      if (sidebar.classList.contains('sidebar-open')) {
+      if (sidebar.classList.contains('active')) {
         icon.name = 'close-outline';
       } else {
         icon.name = 'menu-outline';
@@ -537,11 +211,10 @@ function initMobileMenu() {
     });
     
     // Close mobile menu when clicking on a link
-    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const sidebarLinks = document.querySelectorAll('.navbar-link');
     sidebarLinks.forEach(link => {
       link.addEventListener('click', () => {
-        sidebar.classList.remove('sidebar-open');
-        mainContent.classList.remove('sidebar-open');
+        sidebar.classList.remove('active');
         const icon = mobileMenuBtn.querySelector('ion-icon');
         icon.name = 'menu-outline';
       });
@@ -550,8 +223,7 @@ function initMobileMenu() {
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-        sidebar.classList.remove('sidebar-open');
-        mainContent.classList.remove('sidebar-open');
+        sidebar.classList.remove('active');
         const icon = mobileMenuBtn.querySelector('ion-icon');
         icon.name = 'menu-outline';
       }
@@ -559,28 +231,19 @@ function initMobileMenu() {
   }
 }
 
-// Scroll Reveal Animation
+// Scroll Reveal Animation - Consolidated
 const observerOptions = {
   threshold: 0.1,
   rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const scrollObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('revealed');
     }
   });
 }, observerOptions);
-
-// Observe elements for scroll reveal
-document.addEventListener('DOMContentLoaded', () => {
-  const revealElements = document.querySelectorAll('.service-item, .project-item, .skills-item, .timeline-item');
-  revealElements.forEach(element => {
-    element.classList.add('scroll-reveal');
-    observer.observe(element);
-  });
-});
 
 // Navbar Active Link on Scroll
 window.addEventListener('scroll', () => {
@@ -688,30 +351,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // INTERACTIVE FEATURES
 // ========================================
 
-// Scroll Animations
+// Scroll Animations - Consolidated
 function initScrollAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-
   // Observe all sections and cards except hero
-  const elements = document.querySelectorAll('section:not(.hero), .card, .project-item, .skill-item, .timeline-item');
+  const elements = document.querySelectorAll('section:not(.hero), .service-item, .project-item, .skills-item, .timeline-item, .contact-card, .skill-category, .certification-item');
   elements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
+    el.classList.add('scroll-reveal');
+    scrollObserver.observe(el);
   });
 }
 
@@ -815,107 +461,9 @@ function initProgressBar() {
   });
 }
 
-// Particle Effect
-function initParticleEffect() {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  
-  const canvas = document.createElement('canvas');
-  canvas.style.cssText = `
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  `;
-  
-  hero.appendChild(canvas);
-  
-  const ctx = canvas.getContext('2d');
-  const particles = [];
-  
-  const resizeCanvas = () => {
-    canvas.width = hero.offsetWidth;
-    canvas.height = hero.offsetHeight;
-  };
-  
-  const createParticle = () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 2,
-    vy: (Math.random() - 0.5) * 2,
-    size: Math.random() * 3 + 1,
-    opacity: Math.random() * 0.5 + 0.2
-  });
-  
-  const animateParticles = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    particles.forEach(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      
-      if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-      if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-      
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(88, 166, 255, ${particle.opacity})`;
-      ctx.fill();
-    });
-    
-    requestAnimationFrame(animateParticles);
-  };
-  
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-  
-  for (let i = 0; i < 30; i++) {
-    particles.push(createParticle());
-  }
-  
-  animateParticles();
-}
+// Particle effect removed - not needed for current design
 
-// Skill Bars Animation
-function initSkillBars() {
-  const skillBars = document.querySelectorAll('.skill-bar');
-  if (skillBars.length === 0) return;
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const bar = entry.target;
-        const width = bar.getAttribute('data-width') || '0';
-        bar.style.width = width + '%';
-        observer.unobserve(bar);
-      }
-    });
-  });
-  
-  skillBars.forEach(bar => {
-    bar.style.width = '0%';
-    bar.style.transition = 'width 1s ease';
-    observer.observe(bar);
-  });
-}
-
-// Project Cards Animation
-function initProjectCards() {
-  const projectCards = document.querySelectorAll('.project-item');
-  projectCards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(50px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    
-    setTimeout(() => {
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, index * 200);
-  });
-}
+// Skill Bars and Project Cards animations handled by scroll reveal
 
 // Contact Form
 function initContactForm() {

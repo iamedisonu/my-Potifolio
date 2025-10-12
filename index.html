@@ -42,16 +42,19 @@
 
 <body>
 
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Loading Screen -->
   <div class="loading" id="loading">
     <div class="loading-spinner"></div>
   </div>
 
   <!-- Main Content -->
-  <main>
+  <main role="main">
 
     <!-- Sidebar -->
-    <aside class="sidebar" data-sidebar>
+    <aside class="sidebar" data-sidebar role="complementary" aria-label="Contact information">
       <div class="sidebar-info">
         <figure class="avatar-box">
           <img src="./assets/images/my-avatar.png" alt="Edison Uwamungu" width="120">
@@ -62,13 +65,13 @@
           <p class="title">Computer Science with AI Student</p>
         </div>
 
-        <button class="info_more-btn" data-sidebar-btn>
+        <button class="info_more-btn" data-sidebar-btn aria-expanded="false" aria-controls="sidebar-info-more">
           <span>Show Contacts</span>
-          <ion-icon name="chevron-down"></ion-icon>
+          <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
         </button>
       </div>
 
-      <div class="sidebar-info_more">
+      <div class="sidebar-info_more" id="sidebar-info-more">
         <div class="separator"></div>
 
         <ul class="contacts-list">
@@ -130,10 +133,10 @@
     </aside>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" id="main-content">
 
       <!-- Navbar -->
-      <nav class="navbar">
+      <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
           <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle mobile menu">
             <ion-icon name="menu-outline"></ion-icon>
@@ -158,15 +161,11 @@
               <a href="#contact" class="navbar-link">Contact</a>
             </li>
             <li class="navbar-item">
-              <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
-                <ion-icon name="moon-outline" class="theme-icon"></ion-icon>
+              <button class="theme-toggle" id="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                <ion-icon name="moon-outline" class="theme-icon" aria-hidden="true"></ion-icon>
               </button>
             </li>
         </ul>
-
-          <button class="mobile-menu-btn" data-mobile-menu>
-            <ion-icon name="menu-outline"></ion-icon>
-          </button>
         </div>
       </nav>
 
