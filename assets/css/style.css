@@ -96,15 +96,19 @@ h3 {
   z-index: 10;
   padding: 12px var(--pad) 8px;
   background: linear-gradient(to bottom, var(--shell) 72%, transparent);
+  display: flex;
+  justify-content: center;
 }
 
 .pill-nav {
-  max-width: var(--max);
+  width: fit-content;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: clamp(12px, 2vw, 28px);
-  padding: 12px 18px 12px 22px;
+  justify-content: center;
+  gap: 18px 24px;
+  padding: 10px 18px 10px 20px;
   border-radius: var(--radius-pill);
   background: rgba(18, 18, 24, 0.94);
   border: 1px solid var(--card-border);
@@ -114,7 +118,7 @@ h3 {
 
 .brand {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: -0.02em;
   flex-shrink: 0;
   color: var(--lavender);
@@ -128,10 +132,12 @@ h3 {
 
 .pill-links {
   display: flex;
-  gap: clamp(12px, 2vw, 22px);
-  flex: 1;
+  align-items: center;
+  gap: 16px;
+  flex: 0 1 auto;
   min-width: 0;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .pill-links a {
@@ -149,13 +155,19 @@ h3 {
 
 .pill-social {
   display: flex;
-  gap: 14px;
+  align-items: center;
+  gap: 12px;
   color: var(--lavender);
-  font-size: 18px;
+  font-size: 17px;
   flex-shrink: 0;
+  margin-left: 2px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .pill-social a {
+  display: grid;
+  place-items: center;
   transition: color 0.15s ease;
 }
 
@@ -171,7 +183,7 @@ h3 {
   color: #fff;
   font-size: 26px;
   cursor: pointer;
-  margin-left: auto;
+  margin-left: 4px;
   flex-shrink: 0;
 }
 
@@ -458,6 +470,13 @@ main {
     display: grid;
   }
 
+  .pill-nav {
+    width: 100%;
+    max-width: var(--max);
+    justify-content: space-between;
+    padding: 10px 14px 10px 18px;
+  }
+
   .pill-links,
   .pill-social {
     display: none;
@@ -466,6 +485,7 @@ main {
   .pill-nav.open {
     flex-wrap: wrap;
     border-radius: 28px;
+    justify-content: space-between;
   }
 
   .pill-nav.open .pill-links,
@@ -473,6 +493,15 @@ main {
     display: flex;
     width: 100%;
     padding: 8px 4px 4px;
+    border-left: 0;
+    margin-left: 0;
+    padding-left: 4px;
+    justify-content: center;
+  }
+
+  .pill-nav.open .pill-social {
+    justify-content: center;
+    padding-top: 4px;
   }
 }
 
