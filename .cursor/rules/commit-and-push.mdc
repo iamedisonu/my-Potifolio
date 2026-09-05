@@ -1,0 +1,13 @@
+---
+description: Always commit and push portfolio changes to GitHub
+alwaysApply: true
+---
+
+# Commit and push
+
+After finishing meaningful site changes in this portfolio repo, always create a git commit and push to `origin` on the current branch without waiting to be asked.
+
+- Include all relevant changed and new files (HTML, CSS, JS, images, favicons, resume assets).
+- Use a concise commit message focused on why the change was made.
+- Do not force-push, amend remote commits, or skip hooks.
+- Run `git status` after push to confirm the branch is clean and up to date with the remote.
