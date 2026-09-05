@@ -348,6 +348,14 @@ main {
   overflow-wrap: anywhere;
 }
 
+.tech-note {
+  margin-top: 18px;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
 .panel {
   padding-top: clamp(40px, 7vw, 72px);
 }
