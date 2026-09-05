@@ -1251,6 +1251,8 @@ body {
 .project-placeholder-4 { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); }
 .project-placeholder-5 { background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); }
 .project-placeholder-6 { background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); }
+.project-placeholder-7 { background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); }
+.project-placeholder-8 { background: linear-gradient(135deg, #1d4ed8 0%, #38bdf8 100%); }
 
 .project-icon {
   font-size: var(--fs-2);
