@@ -117,6 +117,13 @@ h3 {
   font-size: 16px;
   letter-spacing: -0.02em;
   flex-shrink: 0;
+  color: var(--lavender);
+  transition: color 0.15s ease;
+}
+
+.brand:hover,
+.brand:focus-visible {
+  color: #fff;
 }
 
 .pill-links {
@@ -132,6 +139,7 @@ h3 {
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
+  transition: color 0.15s ease;
 }
 
 .pill-links a:hover,
@@ -145,6 +153,10 @@ h3 {
   color: var(--lavender);
   font-size: 18px;
   flex-shrink: 0;
+}
+
+.pill-social a {
+  transition: color 0.15s ease;
 }
 
 .pill-social a:hover,
