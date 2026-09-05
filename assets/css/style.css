@@ -312,7 +312,8 @@ main {
 }
 
 .tech-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  align-items: stretch;
 }
 
 .tech-card,
@@ -346,6 +347,24 @@ main {
 .job li {
   font-size: 15px;
   overflow-wrap: anywhere;
+}
+
+@media (min-width: 900px) {
+  .tech-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.65fr);
+  }
+
+  .tech-card--tools ul {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 18px;
+    row-gap: 10px;
+  }
+}
+
+@media (min-width: 1180px) {
+  .tech-card--tools ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .tech-note {
